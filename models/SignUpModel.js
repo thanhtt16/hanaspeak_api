@@ -1,14 +1,17 @@
+'use strict';
+
 var jwt = require('jsonwebtoken');
 var db = require('../database/db_mysql');
 var pool = db.getPool();
 var logger = require('../utils/logger');
 var config = require('config');
 var bcrypt = require('bcrypt');
-var LoginModel = function () {
+
+var SignUpModel = function () {
 
 }
 
-LoginModel.login = function (username, password) {
+SignUpModel.signup = function (userData) {
     return new Promise((resolve, reject) => {
         pool.getConnection((err, connection) => {
             if (err) {
@@ -16,14 +19,16 @@ LoginModel.login = function (username, password) {
                 return reject(err);
             }
             // Hash password
-            bcrypt.hash(password, config.get("salt_factor"), (err, hash) => {
-                if (err) {
+            let password = userData["password"];
+            bcrypt.hash(password, config.get('salt_factor'), (err, hash) => {
+                if(err){
                     logger.error(err);
                     return reject(err)
                 }
-                console.log(hash);
+                password = hash;
             });
-            var sql_query = "SELECT * FROM users WHERE username = ? AND password = ?";
+            // Check username existed
+            var sql_query = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
             var query_params = [username, password];
             connection.query({
                 sql: sql_query,
@@ -53,4 +58,4 @@ LoginModel.login = function (username, password) {
     })
 }
 
-module.exports = LoginModel;
+module.exports = SignUpModel;

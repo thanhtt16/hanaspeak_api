@@ -1,14 +1,14 @@
-'use strict'
+'use strict';
 
-var LoginModel = require('../models/LoginModel');
+var SignUpModel = require('../models/SignUpModel');
 
-var LoginController = function () {
+var SignUpController = function () {
 
 }
 
-LoginController.login = function (username, password) {
+SignUpController.signup = function (username, password) {
     return new Promise((resolve, reject) => {
-        LoginModel.login(username, password)
+        SignUpModel.signup(username, password)
             .then(token => { 
                 return resolve(token);
             })

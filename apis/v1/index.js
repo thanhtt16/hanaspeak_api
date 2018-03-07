@@ -6,6 +6,7 @@ var express = require('express'),
 
 // Import Route
 router.use("/login", login_api);
+router.use("/signup", )
 // router.all('/users*', [require('../../middlewares/auth')]);
 // router.use('/sites', require('./sites_api'));
 // router.use('/server', require('./server_api'));
