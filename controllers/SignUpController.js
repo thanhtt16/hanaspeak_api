@@ -6,9 +6,9 @@ var SignUpController = function () {
 
 }
 
-SignUpController.signup = function (username, password) {
+SignUpController.signup = function (userData) {
     return new Promise((resolve, reject) => {
-        SignUpModel.signup(username, password)
+        SignUpModel.signup(userData)
             .then(token => { 
                 return resolve(token);
             })
@@ -18,4 +18,4 @@ SignUpController.signup = function (username, password) {
     })
 }
 
-module.exports = LoginController;
+module.exports = SignUpController;

@@ -18,41 +18,37 @@ SignUpModel.signup = function (userData) {
                 logger.error('Get DB connection error', err);
                 return reject(err);
             }
+            let username = userData['username'],
+                password = userData['password'];
+            // Check user existed
+            let check_query = "SELECT COUNT(*) FROM users WHERE username = ?";
+            connection.query({
+                sql: check_query,
+                timeout: config.get('mysql.timeout'),
+                values: [username]
+            })
             // Hash password
-            let password = userData["password"];
             bcrypt.hash(password, config.get('salt_factor'), (err, hash) => {
-                if(err){
-                    logger.error(err);
-                    return reject(err)
+                if (err) {
+                    logger.error('SignUpModel.signup hash password error: ', err);
+                    return reject('Hash password error');
                 }
                 password = hash;
-            });
-            // Check username existed
-            var sql_query = "SELECT COUNT(*) FROM users WHERE username = ? AND password = ?";
-            var query_params = [username, password];
-            connection.query({
-                sql: sql_query,
-                timeout: config.get("mysql.timeout"),
-                values: query_params
-            }, function (error, results, fields) {
-                if (error) {
-                    logger.error(error);
-                    return reject(error);
-                } else {
-                    if (results.length == 0) {
-                        logger.warn("Username and password is incorrect");
-                        return reject("Username and password is incorrect");
+                // Insert new user
+                let sql_query = "INSERT INTO users (username, password) VALUES ?";
+                var query_params = [[username, password]];
+                connection.query({
+                    sql: sql_query,
+                    timeout: config.get("mysql.timeout"),
+                    values: [query_params]
+                }, function (error, results, fields) {
+                    if (error) {
+                        logger.error(error);
+                        return reject(error);
+                    } else {
+                        return resolve('Insert user success');
                     }
-                    // Generate token
-                    var payload = {
-                        admin: true
-                    };
-                    var token = jwt.sign(payload, config.get('app.secret_key'), {
-                        expiresIn: 300 // expires in 300 seconds
-                    });
-                    connection.release();
-                    return resolve(token);
-                }
+                });
             });
         })
     })

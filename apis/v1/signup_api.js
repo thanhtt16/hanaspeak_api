@@ -5,22 +5,13 @@ var express = require('express'),
     SignUpController = require('../../controllers/SignUpController');
 
 router.post('/', (req, res) => {
-    
-    
-
-    LoginController.login(username, password)
-        .then(token => {
-            return res.jsend.success({
-                message: "Enjoy your token",
-                token: token
-            })
+    SignUpController.signup(req.body)
+        .then(result => {
+            return res.jsend.success(result);
         })
         .catch(error => {
-            return res.jsend.fail({
-                error: error.message
-            })
+            return res.jsend.error(error);
         })
-
 })
 
 module.exports = router;

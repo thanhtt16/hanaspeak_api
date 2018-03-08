@@ -15,16 +15,9 @@ LoginModel.login = function (username, password) {
                 logger.error('Get DB connection error', err);
                 return reject(err);
             }
-            // Hash password
-            bcrypt.hash(password, config.get("salt_factor"), (err, hash) => {
-                if (err) {
-                    logger.error(err);
-                    return reject(err)
-                }
-                console.log(hash);
-            });
-            var sql_query = "SELECT * FROM users WHERE username = ? AND password = ?";
-            var query_params = [username, password];
+            // select user from DB
+            var sql_query = "SELECT * FROM users WHERE username = ?";
+            var query_params = [username];
             connection.query({
                 sql: sql_query,
                 timeout: config.get("mysql.timeout"),
@@ -35,18 +28,30 @@ LoginModel.login = function (username, password) {
                     return reject(error);
                 } else {
                     if (results.length == 0) {
-                        logger.warn("Username and password is incorrect");
-                        return reject("Username and password is incorrect");
+                        logger.warn("Username is not valid");
+                        return reject("Username is not valid");
                     }
-                    // Generate token
-                    var payload = {
-                        admin: true
-                    };
-                    var token = jwt.sign(payload, config.get('app.secret_key'), {
-                        expiresIn: 300 // expires in 300 seconds
-                    });
-                    connection.release();
-                    return resolve(token);
+                    // Validate password
+                    let pwHash = results[0]["password"];
+                    bcrypt.compare(password, pwHash)
+                        .then(res => {
+                            if (res) {
+                                // Generate token
+                                var payload = {
+                                    admin: true
+                                };
+                                var token = jwt.sign(payload, config.get('app.secret_key'), {
+                                    expiresIn: config.get('token_expire') // expires in 300 seconds
+                                });
+                                return resolve(token);
+                            }
+                            logger.error("username and password are not matched");
+                            return reject("username and password are not matched");
+                        })
+                        .catch(error => {
+                            logger.error("Compare password error: ", error);
+                            return reject("Compare password has error: " + error.message);
+                        })
                 }
             });
         })
