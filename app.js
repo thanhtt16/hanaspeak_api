@@ -27,6 +27,9 @@ app.use(morgan('dev'));
 var apiRoutes = require('./apis');
 app.use(apiRoutes);
 
+// Static
+app.use(express.static('public'));
+
 // basic route
 app.get('/', function (req, res) {
     return res.jsend.success('Welcome to hanaspeak. Base API router is /api/v1');
