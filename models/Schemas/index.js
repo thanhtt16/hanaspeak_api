@@ -1,6 +1,11 @@
 var Sequelize = require('sequelize');
-const sequelize = new Sequelize('hanaspeak', 'hanaspeak', 'hanaspeak@2018', {
-    host: 'localhost',
+var config = require('config');
+var BaseTypes = require('sequelize/lib/data-types');
+var util = require('util');
+
+const sequelize = new Sequelize(config.get('mysql.database'), config.get('mysql.user'), config.get('mysql.password'), {
+    host: config.get('mysql.host'),
+    port: config.get('mysql.port'),
     dialect: 'mysql',
     operatorsAliases: false,
 
@@ -13,4 +18,26 @@ const sequelize = new Sequelize('hanaspeak', 'hanaspeak', 'hanaspeak@2018', {
 
 });
 
-module.exports = sequelize;
+// Custom TIMESTAMP
+var TIMESTAMP = function () {
+    if (!(this instanceof TIMESTAMP)) {
+        return new TIMESTAMP();
+    }
+
+    BaseTypes.ABSTRACT.apply(this, arguments);
+};
+
+util.inherits(TIMESTAMP, BaseTypes.ABSTRACT);
+
+TIMESTAMP.prototype.key = TIMESTAMP.key = 'TIMESTAMP';
+
+sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
+
+module.exports = { sequelize, Sequelize, TIMESTAMP };
