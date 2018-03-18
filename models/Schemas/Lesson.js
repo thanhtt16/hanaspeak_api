@@ -1,9 +1,9 @@
 var { sequelize, Sequelize, TIMESTAMP } = require('./index');
 
-const RolePermission = sequelize.define('role_permission', {
+const Lesson = sequelize.define('lessons', {
     id: { type: Sequelize.INTEGER(11).UNSIGNED, autoIncrement: true, primaryKey: true },
-    role_id: { type: Sequelize.INTEGER(11).UNSIGNED, defaultValue: null },
-    permission_id: { type: Sequelize.INTEGER(11).UNSIGNED, defaultValue: null }
+    name: { type: Sequelize.STRING, allowNull: false },
+    data: { type: Sequelize.TEXT, allowNull: false }
 }, {
         timestamps: true,
         createdAt: 'created_at',
@@ -12,13 +12,12 @@ const RolePermission = sequelize.define('role_permission', {
         collate: 'utf8mb4_unicode_ci'
     })
 
-
-// force: true will drop the table if it already exists
-// RolePermission.sync({
+// Lesson.sync({
 //     force: true
 // }).then(() => {
-//     console.log("Create table role_permission");
+//     console.log("Create table lesson");
 // }).catch(error => {
 //     console.log(error);
 // });
-module.exports = RolePermission;
+
+module.exports = Lesson;

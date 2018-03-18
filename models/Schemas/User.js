@@ -1,4 +1,5 @@
 var { sequelize, Sequelize, TIMESTAMP } = require('./index');
+var Role = require('./Role');
 
 const User = sequelize.define('users', {
     id: { type: Sequelize.INTEGER(11).UNSIGNED, autoIncrement: true, primaryKey: true },
@@ -8,7 +9,8 @@ const User = sequelize.define('users', {
     remember_token: { type: Sequelize.STRING },
     phone: { type: Sequelize.STRING(20), validate: { len: [10, 16], is: /\d+/ } },
     active: { type: Sequelize.TINYINT(2), defaultValue: 1 },
-    parent_user_id: { type: Sequelize.INTEGER(11) }
+    parent_user_id: { type: Sequelize.INTEGER(11) },
+    role_id: { type: Sequelize.INTEGER(11).UNSIGNED, references: { model: Role, key: 'id' } }
 }, {
         timestamps: true,
         createdAt: 'created_at',
