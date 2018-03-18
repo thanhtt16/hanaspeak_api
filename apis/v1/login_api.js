@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
         })
         .catch(error => {
             return res.jsend.fail({
-                error: error
+                message: error
             })
         })
 

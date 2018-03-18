@@ -1,7 +1,7 @@
 // 'use strict';
 const winston = require('winston');
 const fs = require('fs');
-const logDir = '../logs';
+const logDir = __dirname + '/../logs';
 // Create the log directory if it does not exist
 if (!fs.existsSync(logDir)) {
     fs.mkdirSync(logDir);
