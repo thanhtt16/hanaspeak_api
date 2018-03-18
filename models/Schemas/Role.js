@@ -2,7 +2,7 @@ var { sequelize, Sequelize, TIMESTAMP } = require('./index');
 
 const Role = sequelize.define('roles', {
     id: { type: Sequelize.INTEGER(11).UNSIGNED, autoIncrement: true, primaryKey: true },
-    name: { type: Sequelize.STRING },
+    name: { type: Sequelize.STRING, allowNull: false, unique: true, validate: { notEmpty: true } },
     display_name: { type: Sequelize.STRING },
     default_page: { type: Sequelize.STRING(100) }
 }, {

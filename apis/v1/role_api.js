@@ -3,27 +3,27 @@
 var express = require('express'),
     router = express.Router(),
     check_authen = require('../../middlewares/authen'),
-    UserController = require('../../controllers/UserController');
+    RoleController = require('../../controllers/RoleController');
 
 // Check authen token
 router.use(check_authen);
-// Create new user
+// Create new role
 router.post('/', (req, res) => {
-    UserController.createNewUser(req.body)
-        .then(user => {
-            return res.jsend.success(user);
+    RoleController.createNewRole(req.body)
+        .then(role => {
+            return res.jsend.success(role);
         })
         .catch(error => {
             return res.jsend.error(error);
         })
 })
 
-// Get list users
+// Get list roles or get detail role
 router.get('/', (req, res) => {
-    let user_id = req.query['user_id'],
+    let role_id = req.query['role_id'],
         limit = req.query['limit'],
         page = req.query['page'];
-    UserController.getUsers(user_id, limit, page)
+    RoleController.getRoles(role_id, limit, page)
         .then(results => {
             return res.jsend.success(results);
         })
@@ -32,11 +32,11 @@ router.get('/', (req, res) => {
         })
 })
 
-// Update user
+// Update role by id
 router.put('/:id', (req, res) => {
-    let user_id = req.params['id'],
-        userData = req.body;
-    UserController.updateUser(user_id, userData)
+    let role_id = req.params['id'],
+        role_data = req.body;
+    RoleController.updateRole(role_id, role_data)
         .then(result => {
             return res.jsend.success(result);
         })
@@ -45,10 +45,10 @@ router.put('/:id', (req, res) => {
         })
 })
 
-// Delete user
+// Delete role by id
 router.delete('/:id', (req, res) => {
-    let user_id = req.params['id'];
-    UserController.deleteUser(user_id)
+    let role_id = req.params['id'];
+    RoleController.deleteRole(role_id)
         .then(result => {
             return res.jsend.success(result);
         })

@@ -37,16 +37,22 @@ UserModel.createNewUser = function (userData) {
     })
 }
 
-UserModel.getUsers = function () {
+UserModel.getUsers = function (user_id, limit, page) {
     return new Promise((resolve, reject) => {
-        User.findAndCountAll({})
-            .then(result => {
-                return resolve(result);
-            })
-            .catch(error => {
-                logger.error('UserModel.getUsers has error: ', error);
-                return reject(error);
-            })
+        let offset = page * limit;
+        let where_obj = {};
+        if (user_id)
+            where_obj = { id: user_id };
+        User.findAndCountAll({
+            where: where_obj,
+            offset: offset,
+            limit: limit
+        }).then(result => {
+            return resolve(result);
+        }).catch(error => {
+            logger.error('UserModel.getUsers has error: ', error);
+            return reject('Get users error');
+        })
     })
 }
 
@@ -59,18 +65,18 @@ UserModel.updateUser = function (user_id, userData) {
                 userData['password'] = bcrypt.hashSync(password, config.get('salt_factor'));
         } catch (ex) {
             logger.error('UserModel.updateUser has exception: ', ex);
-            return reject(ex);
+            return reject('Hash password error');
         }
         User.update(userData, {
             where: { id: user_id }
         }).then(result => {
             if (result[0] == 1)
-                return resolve('Update success');
+                return resolve('Update user success');
             else
                 return reject('user_id is not existed');
         }).catch(error => {
             logger.error('UserModel.updateUser has error: ', error);
-            return reject(error);
+            return reject('Update user error');
         })
     })
 }
@@ -81,12 +87,12 @@ UserModel.deleteUser = function (user_id) {
             where: { id: user_id }
         }).then(result => {
             if (result == 1)
-                return resolve('Delete success');
+                return resolve('Delete user success');
             else
                 return reject('Not found user_id')
         }).catch(error => {
             logger.error('UserModel.deleteUser has error: ', error);
-            return reject('Delete error');
+            return reject('Delete user error');
         })
     })
 }

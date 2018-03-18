@@ -9,12 +9,15 @@ var mongoose = require('mongoose');
 var config = require('config');
 var jwt = require('jsonwebtoken');
 var jsend = require('jsend');
+var bearerToken = require('express-bearer-token');
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 // Using jsend middle ware
 app.use(jsend.middleware);
+// Using express-bearer-token get authentication token
+app.use(bearerToken());
 
 // Database
 var db = require('./database/db_mysql');

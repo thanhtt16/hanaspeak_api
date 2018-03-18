@@ -6,7 +6,7 @@ var jwt = require('jsonwebtoken'),
 function check_authen(req, res, next) {
     // route middleware to verify a token
     // check header or url parameters or post parameters for token
-    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    var token = req.body['access_token'] || req.query['access_token'] || req.token;
 
     // decode token
     if (token) {

@@ -1,16 +1,16 @@
 'use strict'
 
-var UserModel = require('../models/UserModel');
+var RoleModel = require('../models/RoleModel');
 
-var UserController = function () {
+var RoleController = function () {
 
 }
 
-UserController.createNewUser = function (userData) {
+RoleController.createNewRole = function (role_data) {
     return new Promise((resolve, reject) => {
-        UserModel.createNewUser(userData)
-            .then(user => {
-                return resolve(user);
+        RoleModel.createRole(role_data)
+            .then(role => {
+                return resolve(role);
             })
             .catch(error => {
                 return reject(error);
@@ -18,7 +18,7 @@ UserController.createNewUser = function (userData) {
     })
 }
 
-UserController.getUsers = function (user_id, limit, page) {
+RoleController.getRoles = function (role_id, limit, page) {
     return new Promise((resolve, reject) => {
         try {
             limit = parseInt(limit);
@@ -29,7 +29,7 @@ UserController.getUsers = function (user_id, limit, page) {
             limit = 10;
             page = 0;
         }
-        UserModel.getUsers(user_id, limit, page)
+        RoleModel.getRoles(role_id, limit, page)
             .then(results => {
                 return resolve(results);
             })
@@ -39,9 +39,9 @@ UserController.getUsers = function (user_id, limit, page) {
     })
 }
 
-UserController.updateUser = function (user_id, userData) {
+RoleController.updateRole = function (role_id, role_data) {
     return new Promise((resolve, reject) => {
-        UserModel.updateUser(user_id, userData)
+        RoleModel.updateRole(role_id, role_data)
             .then(results => {
                 return resolve(results);
             })
@@ -51,9 +51,9 @@ UserController.updateUser = function (user_id, userData) {
     })
 }
 
-UserController.deleteUser = function (user_id) {
+RoleController.deleteRole = function (role_id) {
     return new Promise((resolve, reject) => {
-        UserModel.deleteUser(user_id)
+        RoleModel.deleteRole(role_id)
             .then(result => {
                 return resolve(result);
             })
@@ -64,4 +64,4 @@ UserController.deleteUser = function (user_id) {
 }
 
 
-module.exports = UserController;
+module.exports = RoleController;
