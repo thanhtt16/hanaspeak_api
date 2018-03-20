@@ -5,20 +5,79 @@ var express = require('express'),
     check_authen = require('../../middlewares/authen'),
     UserController = require('../../controllers/UserController');
 
-// Check authen token
+// Middleware heck authen token
 router.use(check_authen);
-// Create new user
+/**
+ * @swagger
+ *  definition:
+ *   user:
+ *    properties:
+ *     username:
+ *      type: string
+ *     password:
+ *      type: string
+ *     email:
+ *      type: string
+ *     phone:
+ *      type: number
+ *     active:
+ *      type: integer
+ */
+
+/**
+ * @swagger
+ * /users:
+ *  post:
+ *   tags:
+ *    - users
+ *   summary: Add new user
+ *   description: ''
+ *   consumes:
+ *    - application/json
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: body
+ *      name: body
+ *      description: User object
+ *      required: true
+ *      schema:
+ *       $ref: '#/definitions/user'
+ *   responses:
+ *    200:
+ *     description: Successfully created
+ */
 router.post('/', (req, res) => {
     UserController.createNewUser(req.body)
         .then(user => {
-            return res.jsend.success(user);
+            return res.status(200).jsend.success(user);
         })
         .catch(error => {
             return res.jsend.error(error);
         })
 })
 
-// Get list users
+/**
+ * @swagger
+ * /users:
+ *  get:
+ *   tags:
+ *    - users
+ *   summary: Get 
+ *   description: ''
+ *   produces:
+ *    - application/json
+ *   parameters:
+ *    - in: body
+ *      name: body
+ *      description: User object
+ *      required: true
+ *      schema:
+ *       $ref: '#/definitions/user'
+ *   responses:
+ *    200:
+ *     description: Successfully created
+ */
 router.get('/', (req, res) => {
     let user_id = req.query['user_id'],
         limit = req.query['limit'],
