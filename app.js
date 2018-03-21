@@ -11,7 +11,6 @@ var jwt = require('jsonwebtoken');
 var jsend = require('jsend');
 var swaggerUi = require('swagger-ui-express');
 var swaggerJSDoc = require('swagger-jsdoc');
-var swaggerDocument = require('./docs/swagger_pet.json');
 var bearerToken = require('express-bearer-token');
 /**
  * Swagger definition

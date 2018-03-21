@@ -12,10 +12,55 @@ router.use('/login', login_api);
 router.use('/signup', signup_api);
 router.use('/users', user_api);
 router.use('/roles', role_api);
-// router.all('/users*', [require('../../middlewares/auth')]);
-// router.use('/sites', require('./sites_api'));
-// router.use('/server', require('./server_api'));
-// router.use('/sgroup_server', require('./sgroup_server_api'));
-// router.use('/module', require('./module_api'));
 
+
+
+/**
+ * @swagger
+ *  definitions:
+ *    Signup:
+ *      type: object
+ *      required:
+ *        - username
+ *        - password
+ *      properties:
+ *        username:
+ *          type: string
+ *        password:
+ *          type: string
+ *        email:
+ *          type: string
+ *    Login:
+ *      type: object
+ *      required:
+ *        - username
+ *        - password
+ *      properties:
+ *        username:
+ *          type: string
+ *        password:
+ *          type: string
+ *    User:
+ *      type: object
+ *      properties:
+ *        username:
+ *          type: string
+ *        password:
+ *          type: string
+ *        email:
+ *          type: string
+ *        phone:
+ *          type: number
+ *        active:
+ *          type: integer
+ */
+
+/**
+ * @swagger
+ *   securityDefinitions:
+ *     Bearer:
+ *       type: apiKey
+ *       name: Authorization
+ *       in: header 
+ */
 module.exports = router;

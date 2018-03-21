@@ -7,42 +7,28 @@ var express = require('express'),
 
 // Middleware heck authen token
 router.use(check_authen);
-/**
- * @swagger
- *  definition:
- *   user:
- *    properties:
- *     username:
- *      type: string
- *     password:
- *      type: string
- *     email:
- *      type: string
- *     phone:
- *      type: number
- *     active:
- *      type: integer
- */
 
 /**
  * @swagger
  * /users:
  *  post:
  *   tags:
- *    - users
+ *    - User
  *   summary: Add new user
  *   description: ''
  *   consumes:
  *    - application/json
  *   produces:
  *    - application/json
+ *   security:
+ *    - Bearer: []
  *   parameters:
  *    - in: body
  *      name: body
  *      description: User object
  *      required: true
  *      schema:
- *       $ref: '#/definitions/user'
+ *       $ref: '#/definitions/User'
  *   responses:
  *    200:
  *     description: Successfully created
@@ -62,21 +48,35 @@ router.post('/', (req, res) => {
  * /users:
  *  get:
  *   tags:
- *    - users
- *   summary: Get 
+ *    - User
+ *   security:
+ *    - Bearer: []
+ *   summary: Get all user or by query params
  *   description: ''
  *   produces:
  *    - application/json
  *   parameters:
- *    - in: body
- *      name: body
- *      description: User object
- *      required: true
+ *    - in: query
+ *      name: user_id
+ *      description: user id
  *      schema:
- *       $ref: '#/definitions/user'
+ *       type: integer
+ *      allowReserved: true
+ *    - in: query
+ *      name: limit
+ *      description: limit number of select record
+ *      schema:
+ *       type: integer
+ *      allowReserved: true
+ *    - in: query
+ *      name: page
+ *      description: page number
+ *      schema:
+ *       type: integer
+ *      allowReserved: true
  *   responses:
  *    200:
- *     description: Successfully created
+ *     description: Get successfully
  */
 router.get('/', (req, res) => {
     let user_id = req.query['user_id'],

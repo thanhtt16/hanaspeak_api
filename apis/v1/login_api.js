@@ -4,6 +4,28 @@ var express = require('express'),
     router = express.Router(),
     LoginController = require('../../controllers/LoginController');
 
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     tags:
+ *       - Login
+ *     summary: Allow users to log in, and to receive a Token
+ *     description: ''
+ *     consumes:
+ *       - application/json
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *       - in: body
+ *         required: true
+ *         description: username and password
+ *         schema:
+ *           $ref: '#/definitions/Login'
+ *     responses:
+ *       200:
+ *         description: Successfully created
+ */
 router.post('/', (req, res) => {
     let username = req.body['username'];
     let password = req.body['password'];
