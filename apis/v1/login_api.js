@@ -46,6 +46,7 @@ router.post('/', (req, res) => {
 
     if (!username || !password) {
         return res.status(400).jsend.error({
+            code: 400,
             message: 'Bad request',
             data: req.body
         })
@@ -59,6 +60,7 @@ router.post('/', (req, res) => {
         })
         .catch(error => {
             return res.status(error['code']).jsend.error({
+                code: error['code'],
                 message: error['message']
             })
         })

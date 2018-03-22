@@ -66,16 +66,20 @@ router.use('/roles', role_api);
  *      type: object
  *      required:
  *        - status
+ *        - code
  *        - message
  *      properties:
  *        status:
  *          type: string
+ *        code:
+ *          type: integer
  *        message:
  *          type: string
  *        data:
  *          type: object
  *      example:
- *        example: error
+ *        satatus: error
+ *        code: 400
  *        message: Message for error
  *    Success:
  *      type: object

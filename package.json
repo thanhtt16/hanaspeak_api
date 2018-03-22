@@ -30,6 +30,7 @@
     "morgan": "^1.9.0",
     "mysql": "^2.15.0",
     "mysql2": "^1.5.2",
+    "nodemon": "^1.17.2",
     "sequelize": "^4.35.2",
     "swagger-editor": "^3.4.1",
     "swagger-jsdoc": "^1.9.7",

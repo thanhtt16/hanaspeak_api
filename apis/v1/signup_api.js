@@ -23,6 +23,16 @@ var express = require('express'),
  *     responses:
  *       200:
  *         description: Successfully created
+ *         schema:
+ *           $ref: '#/definitions/User'
+ *       409:
+ *         description: Conflict, user has existed
+ *         schema: 
+ *           $ref: '#/definitions/Error'
+ *       500:
+ *         description: Internal server error
+ *         schema:
+ *           $ref: '#/definitions/Error'
  */
 router.post('/', (req, res) => {
     SignUpController.signup(req.body)
@@ -30,7 +40,10 @@ router.post('/', (req, res) => {
             return res.jsend.success(result);
         })
         .catch(error => {
-            return res.jsend.error(error);
+            return res.status(error['code']).jsend.error({
+                code: error['code'],
+                message: error['message']
+            })
         })
 })
 
