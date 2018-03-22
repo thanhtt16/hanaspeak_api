@@ -65,18 +65,22 @@ router.post('/', (req, res) => {
  *    - in: query
  *      name: limit
  *      description: limit number of select record
- *      schema:
- *       type: integer
+ *      type: integer
+ *      default: 10
  *      allowReserved: true
  *    - in: query
  *      name: page
  *      description: page number
- *      schema:
- *       type: integer
+ *      type: integer
+ *      default: 0
  *      allowReserved: true
  *   responses:
  *    200:
  *     description: Get successfully
+ *     schema:
+ *      type: array
+ *      items:
+ *        $ref: '#/definitions/User'
  */
 router.get('/', (req, res) => {
     let user_id = req.query['user_id'],
@@ -84,10 +88,10 @@ router.get('/', (req, res) => {
         page = req.query['page'];
     UserController.getUsers(user_id, limit, page)
         .then(results => {
-            return res.jsend.success(results);
+            return res.status(200).jsend.success(results);
         })
         .catch(error => {
-            return res.jsend.error(error);
+            return res.status(500).jsend.error(error);
         })
 })
 

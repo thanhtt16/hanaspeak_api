@@ -14,7 +14,7 @@ LoginModel.login = function (username, password) {
         User.findOne({ where: { username: username } })
             .then(user => {
                 if (!user) {
-                    return reject('User is not found');
+                    return reject({ code: 404, message: 'User not found' });
                 }
                 // Check password
                 // Validate password
@@ -31,12 +31,11 @@ LoginModel.login = function (username, password) {
                             });
                             return resolve(token);
                         }
-                        logger.error("username and password are not matched");
-                        return reject("username and password are not matched");
+                        return reject({ code: 404, message: 'username and password are not matched' });
                     })
                     .catch(error => {
                         logger.error("Compare password error: ", error);
-                        return reject("Compare password has error: " + error.message);
+                        return reject({ code: 500, message: 'Compare password error' });
                     })
 
             })

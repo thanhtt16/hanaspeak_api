@@ -18,35 +18,48 @@ var express = require('express'),
  *       - application/json
  *     parameters:
  *       - in: body
+ *         name: body
  *         required: true
  *         description: username and password
  *         schema:
  *           $ref: '#/definitions/Login'
  *     responses:
  *       200:
- *         description: Successfully created
+ *         description: Login success
+ *         schema: '#/definitions/Login'
+ *       400:
+ *         description: Bad request, username and password are required
+ *         schema:
+ *           $ref: '#/definitions/Error'
+ *       404:
+ *         description: Not found username or username and pasword are not matched
+ *         schema:
+ *           $ref: '#/definitions/Error'
+ *       500:
+ *         description: Internal server error
+ *         schema: 
+ *           $ref: '#/definitions/Error'
  */
 router.post('/', (req, res) => {
     let username = req.body['username'];
     let password = req.body['password'];
 
     if (!username || !password) {
-        return res.jsend.fail({
-            code: 400,
+        return res.status(400).jsend.error({
             message: 'Bad request',
-            payload: req.body
+            data: req.body
         })
     }
     LoginController.login(username, password)
         .then(token => {
-            return res.jsend.success({
+            return res.status(200).jsend.success({
                 message: "Enjoy your token",
                 token: token
             })
         })
         .catch(error => {
-            return res.jsend.fail({
-                message: error
+            return res.status(error['code']).jsend.error({
+                message: error['message']
             })
         })
 
