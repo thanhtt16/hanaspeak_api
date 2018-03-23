@@ -42,3 +42,4 @@ app.get('/', function (req, res) {
 var port = process.env.PORT || config.get('server.port');
 app.listen(port);
 console.log('Server is running at port:' + port);
+console.log('Document of apis at: localhost:5000/docs');
