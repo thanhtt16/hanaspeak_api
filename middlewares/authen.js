@@ -13,7 +13,7 @@ function check_authen(req, res, next) {
         // verifies secret and checks exp
         jwt.verify(token, config.get('app.secret_key'), function (err, decoded) {
             if (err) {
-                return res.status(401).jsend.error('Token unauthorized');
+                return res.status(401).jsend.error({ code: 401, message: 'Token unauthorized' });
             } else {
                 // if everything is good, save to request for use in other routes
                 req.decoded = decoded;
@@ -23,7 +23,7 @@ function check_authen(req, res, next) {
     } else {
         // if there is no token
         // return an error
-        return res.jsend.error('No token provided.');
+        return res.status(401).jsend.error({ code: 401, message: 'No token provided.' });
     }
 }
 

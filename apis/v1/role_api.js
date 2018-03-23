@@ -11,10 +11,13 @@ router.use(check_authen);
 router.post('/', (req, res) => {
     RoleController.createNewRole(req.body)
         .then(role => {
-            return res.jsend.success(role);
+            return res.status(200).jsend.success(role);
         })
         .catch(error => {
-            return res.jsend.error(error);
+            return res.status(error['code']).jsend.error({
+                code: error['code'],
+                message: error['message']
+            })
         })
 })
 
@@ -25,10 +28,13 @@ router.get('/', (req, res) => {
         page = req.query['page'];
     RoleController.getRoles(role_id, limit, page)
         .then(results => {
-            return res.jsend.success(results);
+            return res.status(200).jsend.success(results);
         })
         .catch(error => {
-            return res.jsend.error(error);
+            return res.status(error['code']).jsend.error({
+                code: error['code'],
+                message: error['message']
+            })
         })
 })
 
@@ -38,10 +44,13 @@ router.put('/:id', (req, res) => {
         role_data = req.body;
     RoleController.updateRole(role_id, role_data)
         .then(result => {
-            return res.jsend.success(result);
+            return res.status(200).jsend.success(result);
         })
         .catch(error => {
-            return res.jsend.error(error);
+            return res.status(error['code']).jsend.error({
+                code: error['code'],
+                message: error['message']
+            })
         })
 })
 
@@ -50,10 +59,13 @@ router.delete('/:id', (req, res) => {
     let role_id = req.params['id'];
     RoleController.deleteRole(role_id)
         .then(result => {
-            return res.jsend.success(result);
+            return res.status(200).jsend.success(result);
         })
         .catch(error => {
-            return res.jsend.error(error);
+            return res.status(error['code']).jsend.error({
+                code: error['code'],
+                message: error['message']
+            })
         })
 })
 

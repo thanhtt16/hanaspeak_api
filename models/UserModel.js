@@ -64,7 +64,7 @@ UserModel.getUsers = function (user_id, limit, page) {
             if (result['count'] == 0)
                 return reject({
                     code: 404,
-                    message: "Not found user"
+                    message: "Not found any user"
                 })
             return resolve(result);
         }).catch(error => {
@@ -123,10 +123,10 @@ UserModel.deleteUser = function (user_id) {
             if (result == 1)
                 return resolve('Delete user success');
             else
-                return reject('Not found user_id')
+                return reject({ code: 404, message: 'Not found user_id' })
         }).catch(error => {
             logger.error('UserModel.deleteUser has error: ', error);
-            return reject('Delete user error');
+            return reject({ code: 500, message: 'Delete user error' });
         })
     })
 }

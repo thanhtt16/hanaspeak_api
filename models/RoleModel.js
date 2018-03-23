@@ -18,10 +18,10 @@ RoleModel.createRole = function (roleData) {
             if (created)
                 return resolve(role);
             else
-                return reject('Role has existed');
+                return reject({ code: 409, message: 'Role has existed' });
         }).catch(error => {
             logger.error('RoleModel.createRole has error: ', error);
-            return reject('Create role has error');
+            return reject({ code: 500, message: 'Create new role has error' });
         })
     })
 }
@@ -38,10 +38,12 @@ RoleModel.getRoles = function (role_id, limit, page) {
             limit: limit,
             offset: offset
         }).then(results => {
+            if (results['count'] == 0)
+                return reject({ code: 404, message: "Not found any role" })
             return resolve(results);
         }).catch(error => {
             logger.error('RoleModel.getRoles has error: ', error);
-            return reject('Get roles error');
+            return reject({ code: 500, message: 'Get roles error' });
         })
     })
 }
@@ -55,10 +57,10 @@ RoleModel.updateRole = function (role_id, role_data) {
             if (result[0] == 1)
                 return resolve('Update role success');
             else
-                return reject('role_id is not existed');
+                return reject({ code: 404, message: 'role_id is not existed' });
         }).catch(error => {
             logger.error('RoleModel.updateRole has error: ', error);
-            return reject('Update role error');
+            return reject({ code: 500, message: 'Update role error' });
         })
     })
 }
@@ -72,10 +74,10 @@ RoleModel.deleteRole = function (role_id) {
             if (result == 1)
                 return resolve('Delete role success');
             else
-                return reject('Not found role_id')
+                return reject({ code: 404, message: 'Not found role_id' })
         }).catch(error => {
             logger.error('RoleModel.deleteRole has error: ', error);
-            return reject('Delete role error');
+            return reject({ code: 500, message: 'Delete role error' });
         })
     })
 }

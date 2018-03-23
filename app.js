@@ -10,41 +10,19 @@ var config = require('config');
 var jwt = require('jsonwebtoken');
 var jsend = require('jsend');
 var swaggerUi = require('swagger-ui-express');
-var swaggerJSDoc = require('swagger-jsdoc');
+const YAML = require('yamljs');
+const swaggerDocument = YAML.load('./api_docs/api_doc.yaml');
 var bearerToken = require('express-bearer-token');
-/**
- * Swagger definition
- */
-var swaggerDefinition = {
-    info: {
-        title: 'Hanaspeak API',
-        version: '1.0',
-        description: 'Defind documents with Swagger',
-    },
-    host: 'localhost:5000',
-    basePath: '/api/v1/',
-};
-// options for the swagger docs
-var options = {
-    // import swaggerDefinitions
-    swaggerDefinition: swaggerDefinition,
-    // path to the API docs
-    apis: ['./apis/v1/*.js'],
-};
-// initialize swagger-jsdoc
-var swaggerSpec = swaggerJSDoc(options);
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+// Load api docs using swagger-ui
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Using jsend middle ware
 app.use(jsend.middleware);
 // Using express-bearer-token get authentication token
 app.use(bearerToken());
-// Database
-// var db = require('./database/db_mysql');
-// db.connect();
 
 // use morgan to log requests to the console
 app.use(morgan('dev'));
