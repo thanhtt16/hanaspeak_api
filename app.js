@@ -1,5 +1,4 @@
-// =======================
-// get the packages we need ============
+// ======================= get the packages we need ============
 // =======================
 var express = require('express');
 var app = express();
@@ -15,8 +14,18 @@ const swaggerDocument = YAML.load('./api_docs/api_doc.yaml');
 var bearerToken = require('express-bearer-token');
 
 // use body parser so we can get info from POST and/or URL parameters
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
+
+// Import static folder
+app.use("/static", express.static(__dirname + "/static"));
+
+// set the view engine to ejs
+app.set('view engine', 'ejs')
+// Import not authorize route
+var not_authorize_route = require('./routers');
+app.use(not_authorize_route);
+
 // Load api docs using swagger-ui
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // Using jsend middle ware
@@ -32,11 +41,13 @@ var apiRoutes = require('./apis');
 app.use(apiRoutes);
 
 // Static
-app.use(express.static('public'));
+// app.use(express.static('public'));
 
 // basic route
 app.get('/', function (req, res) {
-    return res.jsend.success('Welcome to hanaspeak. Base API router is /api/v1');
+    return res
+        .jsend
+        .success('Welcome to hanaspeak. Base API router is /api/v1');
 });
 
 var port = process.env.PORT || config.get('server.port');
