@@ -5,12 +5,16 @@ var express = require('express'),
     login_api = require('./login_api'),
     signup_api = require('../v1/signup_api'),
     user_api = require('./user_api'),
-    role_api = require('./role_api');
+    role_api = require('./role_api'),
+    flash_card_api = require('./flashcard_api'),
+    flash_card_category = require('./flashcard_category_api');
 
 // Import Route
 router.use('/login', login_api);
 router.use('/signup', signup_api);
 router.use('/users', user_api);
 router.use('/roles', role_api);
+router.use('/flash_cards', flash_card_api);
+router.use('/flash_card_category', flash_card_category);
 
 module.exports = router;

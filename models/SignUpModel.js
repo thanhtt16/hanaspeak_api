@@ -1,8 +1,6 @@
 'use strict';
 
 var jwt = require('jsonwebtoken');
-var db = require('../database/db_mysql');
-var pool = db.getPool();
 var logger = require('../utils/logger');
 var config = require('config');
 var bcrypt = require('bcrypt');

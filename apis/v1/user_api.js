@@ -15,7 +15,10 @@ router.post('/', (req, res) => {
             return res.status(200).jsend.success(user);
         })
         .catch(error => {
-            return res.jsend.error(error);
+            return res.status(error['code']).jsend.error({
+                code: error['code'],
+                message: error['message']
+            })
         })
 })
 
