@@ -16,7 +16,7 @@ $(document).ready(function () {
             return false;
         });
 
-    var albumBucketName = 'hanaspeak/thanhtt';
+    var albumBucketName = 'hanaspeak';
 
     // Initialize the Amazon Cognito credentials provider
     AWS.config.region = 'us-east-1'; // Region
@@ -31,7 +31,7 @@ $(document).ready(function () {
 
     // upload audio
     $('#btn-upload-audio').bind('click', function () {
-        process_upload($(this), '#audio-vocabulary', "#audio-s3-key", "#upload-audio-err-msg", s3)
+        process_upload($(this), '#audio-vocabulary', "#audio-s3-key", "#upload-audio-err-msg", s3, 'audios')
     })
     // delete audio
     $('#btn-delete-audio').bind('click', function () {
@@ -43,7 +43,7 @@ $(document).ready(function () {
 
     // upload image
     $('#btn-upload-image').bind('click', function () {
-        process_upload($(this), '#image-vocabulary', "#image-s3-key", "#upload-image-err-msg", s3)
+        process_upload($(this), '#image-vocabulary', "#image-s3-key", "#upload-image-err-msg", s3, 'images')
     })
     // delete image
     $('#btn-delete-image').bind('click', function () {
@@ -54,7 +54,7 @@ $(document).ready(function () {
     })
     // upload video
     $('#btn-upload-video').bind('click', function () {
-        process_upload($(this), '#video-vocabulary', "#video-s3-key", "#upload-video-err-msg", s3)
+        process_upload($(this), '#video-vocabulary', "#video-s3-key", "#upload-video-err-msg", s3, 'videos')
     })
     // delete video
     $('#btn-delete-video').bind('click', function () {
@@ -109,17 +109,20 @@ $(document).ready(function () {
             });
     })
 });
-function process_upload(button, file_element_id, label_s3_key_id, label_error_msg_id, s3) {
+function process_upload(button, file_element_id, label_s3_key_id, label_error_msg_id, s3, folder_name) {
+    if(!folder_name)
+        folder_name = 'thanhtt';
     let d = new Date();
-    let prev_key_name = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}-${d.getHours()}-${d.getMinutes()}-${d.getSeconds()}`
+    let prev_key_name = `${folder_name}/${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}-${d.getHours()}-${d.getMinutes()}-${d.getSeconds()}`
     let file = $(file_element_id).prop('files')[0];
     if (!file) {
         $(label_error_msg_id).text("Vui lòng chọn file để upload");
         return false;
     }
+    let s3_key = `${prev_key_name}_${file.name}`;
     $(label_error_msg_id).text("");
     let params = {
-        Key: `${prev_key_name}_${file.name}`,
+        Key: s3_key,
         Body: file,
         ACL: 'public-read'
     }
@@ -127,7 +130,7 @@ function process_upload(button, file_element_id, label_s3_key_id, label_error_ms
     s3.upload(params, function (err, data) {
         // console.log(err, data);
         button.button('reset');
-        $(label_s3_key_id).text(`${prev_key_name}_${file.name}`);
+        $(label_s3_key_id).text(s3_key);
     });
 }
 function process_delete(button, s3_key, s3, label_s3_key_id) {
