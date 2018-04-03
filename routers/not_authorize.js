@@ -5,9 +5,9 @@ var express = require('express'),
     router = express.Router();
 
 // Import Route
-router.get('/upload-vocabulary', (req, res) => {
+router.get('/create-vocabulary', (req, res) => {
     res.header('Content-Type', 'text/html');
-    return res.render('upload')
+    return res.render('create_new_vocabulary')
 });
 
 module.exports = router;
