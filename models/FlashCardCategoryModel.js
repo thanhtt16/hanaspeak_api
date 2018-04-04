@@ -27,19 +27,75 @@ FlashCardCategoryModel.createNewFlashCardCategory = function (flashCardCategoryD
     })
 }
 
-FlashCardCategoryModel.getAllCategory = function () {
+FlashCardCategoryModel.getFlashCardCategory = function (categoryId, limit, page) {
     return new Promise((resolve, reject) => {
-        FlashCardCategory.findAll({
-            attributes: ['id', 'name'],
-            order: [['id', 'ASC']]
+        let offset = page * limit;
+        let whereObj = {};
+        if (categoryId) 
+            whereObj = {
+                id: categoryId
+            };
+        FlashCardCategory.findAndCountAll({
+            where: whereObj,
+            attributes: [
+                'id', 'name'
+            ],
+            order: [
+                ['id', 'ASC']
+            ],
+            offset: offset,
+            limit: limit
         }).then(result => {
-            if (result['length'] == 0) 
+            if (result['count'] == 0) 
                 return reject({code: 404, message: "Not found any category"})
             return resolve(result);
         }).catch(error => {
-            logger.error('UserModel.getUsers has error: ', error);
-            return reject({code: 500, message: 'Get category error'});
+            logger.error('FlashCardCategoryModel.getFlashCardCategory has error: ', error);
+            return reject({code: 500, message: 'Get flash card category error'});
         })
+    })
+}
+
+FlashCardCategoryModel.updateFlashCardCategory = function (categoryId, flashCardCategoryData) {
+    return new Promise((resolve, reject) => {
+        FlashCardCategory
+            .update(flashCardCategoryData, {
+            where: {
+                id: categoryId
+            }
+        })
+            .then(result => {
+                if (result[0] == 1) 
+                    return resolve('Update flash card category success');
+                else 
+                    return reject({code: 404, message: 'categoryId is not existed'});
+                }
+            )
+            .catch(error => {
+                logger.error('FlashCardCategoryModel.updateFlashCardCategory has error: ', error);
+                return reject({code: 500, message: 'Update flash card category error'});
+            })
+    })
+}
+
+FlashCardCategoryModel.deleteFlashCardCategory = function (categoryId) {
+    return new Promise((resolve, reject) => {
+        FlashCardCategoryModel
+            .destroy({
+            where: {
+                id: categoryId
+            }
+        })
+            .then(result => {
+                if (result == 1) 
+                    return resolve('Delete flash card category success');
+                else 
+                    return reject({code: 404, message: 'Not found categoryId'})
+            })
+            .catch(error => {
+                logger.error('FlashCardCategoryModel.deleteFlashCardCategory has error: ', error);
+                return reject({code: 500, message: 'Delete flash card category error'});
+            })
     })
 }
 

@@ -2,7 +2,8 @@ var { sequelize, Sequelize, TIMESTAMP } = require('./index');
 
 const FlashCardCategory = sequelize.define('flashcard_category', {
     id: { type: Sequelize.INTEGER(11).UNSIGNED, autoIncrement: true, primaryKey: true },
-    name: { type: Sequelize.STRING(100), allowNull: false, unique: true, validate: { notEmpty: true } }
+    name: { type: Sequelize.STRING(100), allowNull: false, unique: true, validate: { notEmpty: true } },
+    description: {type: Sequelize.STRING}
 }, {
         timestamps: true,
         createdAt: 'created_at',
