@@ -97,8 +97,6 @@ $(document).ready(function () {
             data: conversation_data,
             lession_id: parseInt(lessionId)
         };
-        console.log(JSON.stringify(data));
-        return false;
         axios.post(url, data, {
             headers: {
                 'Content-Type': 'application/json'

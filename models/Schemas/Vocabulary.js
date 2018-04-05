@@ -3,6 +3,7 @@ var Lession = require('./Lession');
 
 const Vocabulary = sequelize.define('vocabularies', {
     id: { type: Sequelize.INTEGER(11).UNSIGNED, autoIncrement: true, primaryKey: true },
+    name: {type: Sequelize.STRING, allowNull: false},
     lession_id: {type: Sequelize.INTEGER(11).UNSIGNED, references: {model: Lession, key: 'id'}},
     data: {type: Sequelize.JSON}
 }, {

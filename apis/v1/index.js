@@ -9,7 +9,8 @@ var express = require('express'),
     flash_card_api = require('./flashcard_api'),
     flash_card_category = require('./flashcard_category_api'),
     book_api = require('./book_api'),
-    lession_api = require('./lession_api');
+    lession_api = require('./lession_api'),
+    conversation_api = require('./conversation_api');
 
 // Import Route
 router.use('/login', login_api);
@@ -20,5 +21,6 @@ router.use('/flash_cards', flash_card_api);
 router.use('/flash_card_category', flash_card_category);
 router.use('/books', book_api);
 router.use('/lessions', lession_api);
+router.use('/conversations', conversation_api);
 
 module.exports = router;
