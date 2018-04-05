@@ -27,16 +27,20 @@ LessionModel.createLession = function (lessionData) {
 }
 
 // Get lessions with paging
-LessionModel.getLessions = function (lessionId, limit, page) {
+LessionModel.getLessions = function (lessionId, limit, page, queryOptions) {
     return new Promise((resolve, reject) => {
         let offset = page * limit;
         let whereObj = {};
         if (lessionId)
             whereObj = { id: lessionId };
+        for(let key in queryOptions)
+            whereObj[key] = queryOptions[key]
         Lession.findAndCountAll({
+            attributes: ['id', 'name', 'book_id'],
             where: whereObj,
             limit: limit,
-            offset: offset
+            offset: offset,
+            order: [['id', 'ASC']]
         }).then(results => {
             if (results['count'] == 0)
                 return reject({ code: 404, message: "Not found any lession" })

@@ -22,4 +22,10 @@ router.get('/create-lession', (req, res) => {
     return res.render('create_lession');
 });
 
+// Create conversation
+router.get('/create-conversation', (req, res) => {
+    res.header('Content-Type', 'text/html');
+    return res.render('create_conversation');
+});
+
 module.exports = router;

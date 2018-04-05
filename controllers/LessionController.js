@@ -18,7 +18,7 @@ LessionController.createLession = function (lessionData) {
     })
 }
 
-LessionController.getLessions = function (lessionId, limit, page) {
+LessionController.getLessions = function (lessionId, limit, page, queryOptions) {
     return new Promise((resolve, reject) => {
         try {
             limit = parseInt(limit);
@@ -29,7 +29,7 @@ LessionController.getLessions = function (lessionId, limit, page) {
             limit = 10;
             page = 0;
         }
-        LessionModel.getLessions(lessionId, limit, page)
+        LessionModel.getLessions(lessionId, limit, page, queryOptions)
             .then(results => {
                 return resolve(results);
             })

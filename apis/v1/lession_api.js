@@ -25,8 +25,12 @@ router.post('/', (req, res) => {
 router.get('/', (req, res) => {
     let lessionId = req.query['lession_id'],
         limit = req.query['limit'],
-        page = req.query['page'];
-    LessionController.getLessions(lessionId, limit, page)
+        page = req.query['page'],
+        bookId = req.query['book_id'],
+        queryOptions = {};
+    if(bookId)
+        queryOptions['book_id'] = bookId;
+    LessionController.getLessions(lessionId, limit, page, queryOptions)
         .then(results => {
             return res.status(200).jsend.success(results);
         })
