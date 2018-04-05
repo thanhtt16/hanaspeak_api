@@ -5,8 +5,8 @@ $(document).ready(function () {
         .then(function (response) {
             // Append category
             var s = document.getElementById('flashcard_category');
-            if (response.data.data) {
-                response.data.data.forEach((item) => {
+            if (response.data.data.rows) {
+                response.data.data.rows.forEach((item) => {
                     s.options[s.options.length] = new Option(item['name'], item['id']);
                 })
             }
