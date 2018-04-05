@@ -14,12 +14,12 @@ const Role = sequelize.define('roles', {
     })
 
 // force: true will drop the table if it already exists
-Role.sync({
-    force: true
-}).then(() => {
-    console.log("Create table roles");
-}).catch(error => {
-    console.log(error);
-});
+// Role.sync({
+//     force: true
+// }).then(() => {
+//     console.log("Create table roles");
+// }).catch(error => {
+//     console.log(error);
+// });
 
 module.exports = Role;

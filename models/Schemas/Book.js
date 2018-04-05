@@ -13,12 +13,12 @@ const Book = sequelize.define('books', {
         collate: 'utf8mb4_unicode_ci'
     })
 
-Book.sync({
-    force: true
-}).then(() => {
-    console.log("Create table books");
-}).catch(error => {
-    console.log(error);
-});
+// Book.sync({
+//     force: true
+// }).then(() => {
+//     console.log("Create table books");
+// }).catch(error => {
+//     console.log(error);
+// });
 
 module.exports = Book;
