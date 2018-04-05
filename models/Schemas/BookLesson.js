@@ -11,12 +11,12 @@ const BookLesson = sequelize.define('book_lesson', {
         charset: 'utf8mb4',
         collate: 'utf8mb4_unicode_ci'
     })
-// BookLesson.sync({
-//     force: true
-// }).then(() => {
-//     console.log("Create table book_lesson");
-// }).catch(error => {
-//     console.log(error);
-// });
+BookLesson.sync({
+    force: true
+}).then(() => {
+    console.log("Create table book_lesson");
+}).catch(error => {
+    console.log(error);
+});
 
 module.exports = BookLesson;

@@ -21,13 +21,13 @@ const FlashCardCategory = sequelize.define('flashcard_category', {
 //         console.log(error);
 //     })
 // force: true will drop the table if it already exists
-// FlashcardCategory.sync({
-//     force: true
-// }).then(() => {
-//     console.log("Create table flashcard_category");
-// }).catch(error => {
-//     console.log(error);
-// });
+FlashcardCategory.sync({
+    force: true
+}).then(() => {
+    console.log("Create table flashcard_category");
+}).catch(error => {
+    console.log(error);
+});
 
 
 module.exports = FlashCardCategory;

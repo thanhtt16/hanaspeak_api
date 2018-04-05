@@ -12,12 +12,12 @@ const Lesson = sequelize.define('lessons', {
         collate: 'utf8mb4_unicode_ci'
     })
 
-// Lesson.sync({
-//     force: true
-// }).then(() => {
-//     console.log("Create table lesson");
-// }).catch(error => {
-//     console.log(error);
-// });
+Lesson.sync({
+    force: true
+}).then(() => {
+    console.log("Create table lesson");
+}).catch(error => {
+    console.log(error);
+});
 
 module.exports = Lesson;

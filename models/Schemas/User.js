@@ -21,13 +21,13 @@ const User = sequelize.define('users', {
 
 
 // force: true will drop the table if it already exists
-// User.sync({
-//     force: true
-// }).then(() => {
-//     console.log("Create table users");
-// }).catch(error => {
-//     console.log(error);
-// });
+User.sync({
+    force: true
+}).then(() => {
+    console.log("Create table users");
+}).catch(error => {
+    console.log(error);
+});
 
 // Create user
 // User.create({

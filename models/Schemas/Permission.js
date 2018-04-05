@@ -14,12 +14,12 @@ const Permission = sequelize.define('permissions', {
     })
 
 // force: true will drop the table if it already exists
-// Permission.sync({
-//     force: true
-// }).then(() => {
-//     console.log("Create table permissions");
-// }).catch(error => {
-//     console.log(error);
-// });
+Permission.sync({
+    force: true
+}).then(() => {
+    console.log("Create table permissions");
+}).catch(error => {
+    console.log(error);
+});
 
 module.exports = Permission;
