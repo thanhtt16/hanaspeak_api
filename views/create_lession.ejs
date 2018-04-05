@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <link rel="shortcut icon" href="static/icon.ico">
+    <link rel="stylesheet" href="static/lib/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Create Lession</title>
+</head>
+
+<body>
+    <div class="container" style="margin-top: 30px">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Upload Lession</h3>
+                    </div>
+                    <div class="panel-body">
+                        <!-- <form role="form"> -->
+                        <div class="form-group">
+                            <label for="books">Chọn sách</label>
+                            <select name="books" id="books" class="form-control">
+                                <!-- <option value="1">Động vật</option> -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="name">Tên</label>
+                            <input name="name" type="text" class="form-control" id="name-lession" placeholder="Tên bài học">
+                        </div>
+                        <div class="form-group">
+                            <label for="description">Mô tả</label>
+                            <textarea name="description" class="form-control" rows="3" id="description-lession"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" id="submit-data">Submit</button>
+                        <!-- </form> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="static/lib/js/jquery-3.3.1.min.js"></script>
+    <script src="static/lib/js/bootstrap.min.js"></script>
+    <script src="static/lib/js/axios.min.js"></script>
+    <script src="static/js/create_lession.js"></script>
+</body>
+
+</html>

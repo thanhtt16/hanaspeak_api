@@ -7,7 +7,9 @@ var express = require('express'),
     user_api = require('./user_api'),
     role_api = require('./role_api'),
     flash_card_api = require('./flashcard_api'),
-    flash_card_category = require('./flashcard_category_api');
+    flash_card_category = require('./flashcard_category_api'),
+    book_api = require('./book_api'),
+    lession_api = require('./lession_api');
 
 // Import Route
 router.use('/login', login_api);
@@ -16,5 +18,7 @@ router.use('/users', user_api);
 router.use('/roles', role_api);
 router.use('/flash_cards', flash_card_api);
 router.use('/flash_card_category', flash_card_category);
+router.use('/books', book_api);
+router.use('/lessions', lession_api);
 
 module.exports = router;

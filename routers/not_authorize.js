@@ -4,10 +4,22 @@ var express = require('express'),
     path = require("path"),
     router = express.Router();
 
-// Import Route
-router.get('/create-vocabulary', (req, res) => {
+// Create flash card
+router.get('/create-flashcard', (req, res) => {
     res.header('Content-Type', 'text/html');
-    return res.render('create_new_vocabulary')
+    return res.render('create_flashcard')
+});
+
+// Create book
+router.get('/create-book', (req, res) => {
+    res.header('Content-Type', 'text/html');
+    return res.render('create_book');
+});
+
+// Create lession
+router.get('/create-lession', (req, res) => {
+    res.header('Content-Type', 'text/html');
+    return res.render('create_lession');
 });
 
 module.exports = router;
