@@ -46,5 +46,11 @@ router.get('/create-grammar', (req, res) => {
     return res.render('create_grammar');
 });
 
+// Create home page
+router.get('/home', (req, res) => {
+    res.header('Content-Type', 'text/html');
+    return res.render('home');
+});
+
 
 module.exports = router;
