@@ -10,10 +10,11 @@ var ConversationModel = function () {
 // Create Conversation
 ConversationModel.createConversation = function (conversationData) {
     return new Promise((resolve, reject) => {
-        let conversationName = conversationData['name'];
+        let conversationName = conversationData['name'],
+            lessionId = conversationData['lession_id'];
         Conversation.findOrCreate({
             defaults: conversationData,
-            where: { name: conversationName }
+            where: { name: conversationName, lession_id: lessionId }
         }).spread((conversation, created) => {
             if (created)
                 return resolve(conversation);

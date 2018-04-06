@@ -87,6 +87,7 @@ $(document).ready(function () {
         let conversation_name = $('#name-conversation').val().trim(),
             conversation_data = dataConversation,
             lessionId = $('#lessions').val().trim(),
+            lessionName = $('#lessions').text().trim(),
             coverImageS3Link = $('#cover-image').val().trim(),
             coverVideoS3Link = $('#cover-video').val().trim();
         if (!conversation_name)
@@ -113,14 +114,14 @@ $(document).ready(function () {
             // other configuration there
         })
             .then(function (response) {
-                alert(`Thêm mới đoạn hội thoại ${conversation_name} thành công!`)
+                alert(`Thêm mới đoạn hội thoại ${conversation_name} cho bài học ${lessionName} thành công!`)
                 return false;
             })
             .catch(function (error) {
                 if (error.response.data['code'] == 409)
-                    alert(`Bài học ${conversation_name} đã tồn tại trong hệ thống`);
+                    alert(`Đoạn hội thoại ${conversation_name} của bài học ${lessionName} đã tồn tại trong hệ thống`);
                 else
-                    alert(`Xảy ra lỗi khi thêm mới bài học ${conversation_name}!`);
+                    alert(`Xảy ra lỗi khi thêm mới đoạn hội thoại ${conversation_name}!`);
                 return false;
             });
     })
