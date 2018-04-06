@@ -10,6 +10,12 @@ router.get('/create-flashcard', (req, res) => {
     return res.render('create_flashcard')
 });
 
+// Create flash card category
+router.get('/create-category', (req, res) => {
+    res.header('Content-Type', 'text/html');
+    return res.render('create_flashcard_category')
+});
+
 // Create book
 router.get('/create-book', (req, res) => {
     res.header('Content-Type', 'text/html');
