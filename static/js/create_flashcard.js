@@ -75,8 +75,8 @@ $(document).ready(function () {
             vocab_video_s3_link = $('#video-s3-key').text().trim(),
             vocab_description = $('#description-vocabulary').val().trim(),
             vocab_category = $('#flashcard_category').val().trim();
-        if (!vocab_name || !vocab_translate)
-            return alert("Bạn phải nhập dữ liệu của tên và dịch từ vựng");
+        if (!vocab_name)
+            return alert("Bạn phải nhập dữ liệu của tên từ vựng");
         if (!vocab_category)
             return alert("Bạn phải chọn chủ đề cho từ vựng");
         // Call axios send data
