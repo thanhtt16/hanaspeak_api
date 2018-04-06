@@ -10,10 +10,11 @@ var LessionModel = function () {
 // Create Lession
 LessionModel.createLession = function (lessionData) {
     return new Promise((resolve, reject) => {
-        let lessionName = lessionData['name'];
+        let lessionName = lessionData['name'],
+            bookId = lessionData['book_id'];
         Lession.findOrCreate({
             defaults: lessionData,
-            where: { name: lessionName }
+            where: { name: lessionName , book_id: bookId}
         }).spread((lession, created) => {
             if (created)
                 return resolve(lession);
