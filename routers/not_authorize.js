@@ -40,5 +40,11 @@ router.get('/create-expansion', (req, res) => {
     return res.render('create_expansion');
 });
 
+// Create expansion
+router.get('/create-grammar', (req, res) => {
+    res.header('Content-Type', 'text/html');
+    return res.render('create_grammar');
+});
+
 
 module.exports = router;
