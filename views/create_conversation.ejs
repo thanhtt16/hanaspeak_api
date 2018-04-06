@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#000000">
     <link rel="shortcut icon" href="static/icon.ico">
     <link rel="stylesheet" href="static/lib/css/bootstrap.min.css">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <title>Create Conversation</title>
 </head>
@@ -38,22 +38,43 @@
                             <input name="name" type="text" class="form-control" id="name-conversation" placeholder="Tên đoạn hội thoại">
                         </div>
                         <div class="form-group">
-                            <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 <label for="avatar">Link Avatar</label>
                                 <input name="avatar" type="text" class="form-control" id="avatar" placeholder="Link S3 Avatar">
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <label for="audio">Link Âm thanh</label>
+                                <input name="audio" type="text" class="form-control" id="audio" placeholder="Link S3 Âm thanh">
                             </div>
                             <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                 <label for="sentence">Câu hội thoại</label>
                                 <textarea name="sentence" class="form-control" rows="3" id="sentence"></textarea>
                             </div>
-                            <button type="button" class="btn btn-success" id="add-conversation">Add</button>
-                        </div>
-                        <div class="form-group">
-                            <label>Nội dung toàn bộ đoạn hội thoại</label>
-                            <div id="all-conversation" style="border: 3px solid rebeccapurple; padding: 10px">
+
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <button style="margin-top: 25px" type="button" class="btn btn-success" id="add-conversation">Add</button>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary" id="submit-data">Submit</button>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="form-group">
+                                    <label>Nội dung toàn bộ đoạn hội thoại</label>
+                                    <div id="all-conversation" style="border: 3px solid rebeccapurple; padding: 10px">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="cover-image">Link Cover Image</label>
+                            <input name="cover-image" type="text" class="form-control" id="cover-image" placeholder="Link S3 Image Cover">
+                        </div>
+                        <div class="form-group">
+                            <label for="cover-video">Link Cover Video</label>
+                            <input name="cover-video" type="text" class="form-control" id="cover-video" placeholder="Link S3 Video Cover">
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-primary" id="submit-data">Submit</button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -28,4 +28,10 @@ router.get('/create-conversation', (req, res) => {
     return res.render('create_conversation');
 });
 
+// Create vocabulary
+router.get('/create-vocabulary', (req, res) => {
+    res.header('Content-Type', 'text/html');
+    return res.render('create_vocabulary');
+});
+
 module.exports = router;

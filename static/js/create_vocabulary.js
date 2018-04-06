@@ -60,52 +60,71 @@ $(document).ready(function () {
             })
     });
 
-    // Process append conversation
-    $('#add-conversation').on('click', function(){
-        // Get content
-        let avatarS3Link = $('#avatar').val().trim(),
-            audioS3Link = $('#audio').val().trim(),
-            sentence = $('#sentence').val().trim();
-        if(!avatarS3Link || !sentence)
-            return alert('Phải nhập đủ 2 thông tin avatar và câu thoại')
-        // Append data conversation
-        let content = `<span class="label label-success">${avatarS3Link}</span>: <span>${sentence}</span><br/>`
-        $('#all-conversation').append(content);
-        // Append data conversation for submit
-        let d = {};
-        d['avatar'] = avatarS3Link;
-        d['audio'] = audioS3Link;
-        d['sentence'] = sentence;
-        dataConversation.push(d);
-        // console.log(dataConversation);
-        return false;
-    })
+    var flashCardSlect = new SlimSelect({
+        select: '#flashcards',
+        closeOnSelect: false,
+        searchHighlight: true,
+        placeholder: 'Placeholder Text Here',
+        searchText: 'Not found anything',
+        allowDeselect: true,
+        onChange: (info) => {
+            console.log(info);   
+        },
+        ajax: function (search, callback) {
+          // Check search value. If you dont like it callback(false) or callback('Message String')
+        //   if (search.length < 3) {
+        //     callback('Need 3 characters')
+        //     return
+        //   }
+      
+          // Perform your own ajax request here
+          fetch('/api/v1/flash_cards')
+          .then(function (response) {
+            return response.json()
+          })
+          .then(function (json) {
+            let data = [];
+            if(json.status === "success"){
+                for (let i = 0; i < json.data.count; i++) {
+                    data.push({text: json.data.rows[i].name, value: json.data.rows[i].id})
+                }
+            }
+      
+            // Upon successful fetch send data to callback function.
+            // Be sure to send data back in the proper format.
+            // Refer to the method setData for examples of proper format.
+            callback(data)
+          })
+          .catch(function(error) {
+            // If any erros happened send false back through the callback
+            callback(false)
+          })
+        }
+      })
 
     // Process submit upload data
     $('#submit-data').bind('click', function () {
         // Get form data
-        let conversation_name = $('#name-conversation').val().trim(),
-            conversation_data = dataConversation,
-            lessionId = $('#lessions').val().trim(),
-            coverImageS3Link = $('#cover-image').val().trim(),
-            coverVideoS3Link = $('#cover-video').val().trim();
-        if (!conversation_name)
-            return alert("Bạn phải nhập tên đoạn hội thoại");
+        let vocabulary_name = $('#name-vocabulary').val().trim(),
+            lessionId = $('#lessions').val(),
+            vocabulary_data = flashCardSlect.selected(),
+            lession_name = $('#lessions').text();
+        if (!vocabulary_name)
+            return alert("Bạn phải nhập tên phần từ vựng");
         if (!lessionId)
             return alert("Bạn phải chọn bài học");
-        if(!conversation_data)
-            return alert("Bạn phải thêm nội dung cho đoạn hội thoại");
+        if(vocabulary_data.length == 0)
+            return alert("Bạn chưa chọn từ vựng");
+        vocabulary_data = vocabulary_data.map(item=>{
+            return parseInt(item);
+        })
         // Call axios send data
-        let url = '/api/v1/conversations';
+        let url = '/api/v1/vocabulary';
         var data = {
-            name: conversation_name,
-            data: conversation_data,
+            name: vocabulary_name,
+            data: vocabulary_data,
             lession_id: parseInt(lessionId)
         };
-        if(coverImageS3Link)
-            data['cover_image'] = coverImageS3Link;
-        if(coverVideoS3Link)
-            data['cover_video'] = coverVideoS3Link;
         axios.post(url, data, {
             headers: {
                 'Content-Type': 'application/json'
@@ -113,14 +132,14 @@ $(document).ready(function () {
             // other configuration there
         })
             .then(function (response) {
-                alert(`Thêm mới đoạn hội thoại ${conversation_name} thành công!`)
+                alert(`Thêm mới từ vựng ${vocabulary_name} cho bài học ${lession_name} thành công!`);
                 return false;
             })
             .catch(function (error) {
                 if (error.response.data['code'] == 409)
-                    alert(`Bài học ${conversation_name} đã tồn tại trong hệ thống`);
+                    alert(`Từ vựng ${vocabulary_name} của bài học ${lession_name} đã tồn tại trong hệ thống`);
                 else
-                    alert(`Xảy ra lỗi khi thêm mới bài học ${conversation_name}!`);
+                    alert(`Xảy ra lỗi khi thêm mới từ vựng ${vocabulary_name}!`);
                 return false;
             });
     })

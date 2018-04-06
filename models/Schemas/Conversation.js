@@ -5,7 +5,9 @@ const Conversation = sequelize.define('conversations', {
     id: { type: Sequelize.INTEGER(11).UNSIGNED, autoIncrement: true, primaryKey: true },
     name: {type: Sequelize.STRING, allowNull: false},
     lession_id: {type: Sequelize.INTEGER(11).UNSIGNED, references: {model: Lession, key: 'id'}},
-    data: {type: Sequelize.JSON}
+    data: {type: Sequelize.JSON},
+    cover_image: {type: Sequelize.STRING},
+    cover_video: {type: Sequelize.STRING}
 }, {
         timestamps: true,
         createdAt: 'created_at',
