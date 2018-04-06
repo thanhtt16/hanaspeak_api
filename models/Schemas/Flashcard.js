@@ -4,7 +4,7 @@ var FlashCardCategory = require('./FlashCardCategory');
 
 const FlashCard = sequelize.define('flash_cards', {
     id: { type: Sequelize.INTEGER(11).UNSIGNED, autoIncrement: true, primaryKey: true },
-    name: { type: Sequelize.STRING(100), allowNull: false, unique: true, validate: { notEmpty: true } },
+    name: { type: Sequelize.STRING(100), allowNull: false, unique: true, validate: { notEmpty: true }},
     translate: { type: Sequelize.STRING },
     audio: { type: Sequelize.STRING },
     image: { type: Sequelize.STRING },
@@ -17,8 +17,8 @@ const FlashCard = sequelize.define('flash_cards', {
         timestamps: true,
         createdAt: 'created_at',
         updatedAt: 'updated_at',
-        charset: 'utf8mb4',
-        collate: 'utf8mb4_unicode_ci'
+        charset: 'utf8',
+        collate: 'utf8_vietnamese_ci'
     })
 
 
