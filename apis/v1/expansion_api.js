@@ -3,15 +3,15 @@
 var express = require('express'),
     router = express.Router(),
     check_authen = require('../../middlewares/authen'),
-    VocabularyController = require('../../controllers/VocabularyController');
+    ExpansionController = require('../../controllers/ExpansionController');
 
 // Check authen token
 // router.use(check_authen);
-// Create new vocabulary
+// Create new expansion
 router.post('/', (req, res) => {
-    VocabularyController.createVocabulary(req.body)
-        .then(vocabulary => {
-            return res.status(200).jsend.success(vocabulary);
+    ExpansionController.createExpansion(req.body)
+        .then(expansion => {
+            return res.status(200).jsend.success(expansion);
         })
         .catch(error => {
             return res.status(error['code']).jsend.error({
@@ -21,12 +21,12 @@ router.post('/', (req, res) => {
         })
 })
 
-// Get list vocabulary
+// Get list expansion
 router.get('/', (req, res) => {
-    let vocabularyId = req.query['vocabulary_id'],
+    let expansionId = req.query['expansion_id'],
         limit = req.query['limit'],
         page = req.query['page'];
-    VocabularyController.getVocabulary(vocabularyId, limit, page)
+    ExpansionController.getExpansions(expansionId, limit, page)
         .then(results => {
             return res.status(200).jsend.success(results);
         })
@@ -38,11 +38,11 @@ router.get('/', (req, res) => {
         })
 })
 
-// Update vocabulary by id
+// Update expansion by id
 router.put('/:id', (req, res) => {
-    let vocabularyId = req.params['id'],
-        vocabularyData = req.body;
-    VocabularyController.updateVocabulary(vocabularyId, vocabularyData)
+    let expansionId = req.params['id'],
+        expansionData = req.body;
+    ExpansionController.updateExpansion(expansionId, expansionData)
         .then(result => {
             return res.status(200).jsend.success(result);
         })
@@ -54,10 +54,10 @@ router.put('/:id', (req, res) => {
         })
 })
 
-// Delete vocabulary by id
+// Delete expansion by id
 router.delete('/:id', (req, res) => {
-    let vocabularyId = req.params['id'];
-    VocabularyController.deleteVocabulary(vocabularyId)
+    let expansionId = req.params['id'];
+    ExpansionController.deleteExpansion(expansionId)
         .then(result => {
             return res.status(200).jsend.success(result);
         })

@@ -34,4 +34,11 @@ router.get('/create-vocabulary', (req, res) => {
     return res.render('create_vocabulary');
 });
 
+// Create expansion
+router.get('/create-expansion', (req, res) => {
+    res.header('Content-Type', 'text/html');
+    return res.render('create_expansion');
+});
+
+
 module.exports = router;

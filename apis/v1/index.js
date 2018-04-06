@@ -11,7 +11,8 @@ var express = require('express'),
     book_api = require('./book_api'),
     lession_api = require('./lession_api'),
     conversation_api = require('./conversation_api'),
-    vocabulary_api = require('./vocabulary_api');
+    vocabulary_api = require('./vocabulary_api'),
+    expansion_api = require('./expansion_api');
 
 // Import Route
 router.use('/login', login_api);
@@ -24,5 +25,6 @@ router.use('/books', book_api);
 router.use('/lessions', lession_api);
 router.use('/conversations', conversation_api);
 router.use('/vocabulary', vocabulary_api);
+router.use('/expansions', expansion_api);
 
 module.exports = router;

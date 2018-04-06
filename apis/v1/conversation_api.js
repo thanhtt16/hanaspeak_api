@@ -10,8 +10,8 @@ var express = require('express'),
 // Create new conversation
 router.post('/', (req, res) => {
     ConversationController.createConversation(req.body)
-        .then(book => {
-            return res.status(200).jsend.success(book);
+        .then(conversation => {
+            return res.status(200).jsend.success(conversation);
         })
         .catch(error => {
             return res.status(error['code']).jsend.error({
