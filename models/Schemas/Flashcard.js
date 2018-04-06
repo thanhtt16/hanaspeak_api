@@ -23,13 +23,13 @@ const FlashCard = sequelize.define('flash_cards', {
 
 
 // force: true will drop the table if it already exists
-FlashCard.sync({
-    force: true
-}).then(() => {
-    console.log("Create table flash_cards");
-}).catch(error => {
-    console.log(error);
-});
+// FlashCard.sync({
+//     force: true
+// }).then(() => {
+//     console.log("Create table flash_cards");
+// }).catch(error => {
+//     console.log(error);
+// });
 
 
 module.exports = FlashCard;
