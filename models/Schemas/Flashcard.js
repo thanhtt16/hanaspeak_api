@@ -5,7 +5,7 @@ var FlashCardCategory = require('./FlashCardCategory');
 const FlashCard = sequelize.define('flash_cards', {
     id: { type: Sequelize.INTEGER(11).UNSIGNED, autoIncrement: true, primaryKey: true },
     name: { type: Sequelize.STRING(100), allowNull: false, unique: true, validate: { notEmpty: true } },
-    translate: { type: Sequelize.STRING(100), allowNull: false, validate: { notEmpty: true } },
+    translate: { type: Sequelize.STRING },
     audio: { type: Sequelize.STRING },
     image: { type: Sequelize.STRING },
     video: { type: Sequelize.STRING },
@@ -23,13 +23,13 @@ const FlashCard = sequelize.define('flash_cards', {
 
 
 // force: true will drop the table if it already exists
-// FlashCard.sync({
-//     force: true
-// }).then(() => {
-//     console.log("Create table flash_cards");
-// }).catch(error => {
-//     console.log(error);
-// });
+FlashCard.sync({
+    force: true
+}).then(() => {
+    console.log("Create table flash_cards");
+}).catch(error => {
+    console.log(error);
+});
 
 
 module.exports = FlashCard;
