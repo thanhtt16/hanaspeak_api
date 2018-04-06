@@ -23,12 +23,12 @@ FlashCardCategoryController.getFlashCardCategories = function (categoryId, limit
             limit = parseInt(limit);
             page = parseInt(page);
             if (!limit || limit < 0) 
-                limit = 10;
+                limit = 100;
             if (!page || page < 0) 
                 page = 0;
             }
         catch (ex) {
-            limit = 10;
+            limit = 100;
             page = 0;
         }
         FlashCardCategoryModel
