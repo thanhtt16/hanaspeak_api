@@ -1,3 +1,10 @@
+// Define list extension of file
+const FILE_EXTENSIONS = {
+    "AUDIO": ['mp3', 'wav', 'mpa', 'wma', 'mid', 'm4a', 'm3u', 'iff', 'aif'],
+    "IMAGE": ['jpg', 'png', 'gif', 'webp', 'svg'],
+    "VIDEO": ['mp4']
+}
+
 $(document).ready(function () {
     // Request ajax get all category
     let getCategoryUrl = '/api/v1/flash_card_category'
@@ -118,6 +125,23 @@ function process_upload(button, file_element_id, label_s3_key_id, label_error_ms
     if (!file) {
         $(label_error_msg_id).text("Vui lòng chọn file để upload");
         return false;
+    }
+    let fileExtension = file.name.replace(/^.*\./, '').toLowerCase();
+    switch(file_element_id){
+        case '#audio-vocabulary':
+            if(FILE_EXTENSIONS['AUDIO'].indexOf(fileExtension) == -1)
+                return alert('File âm thanh không đúng định dạng');
+            break;
+        case '#image-vocabulary':
+            if(FILE_EXTENSIONS['IMAGE'].indexOf(fileExtension) == -1)
+                return alert('File hình ảnh không đúng định dạng');
+            break;
+        case '#video-vocabulary':
+            if(FILE_EXTENSIONS['VIDEO'].indexOf(fileExtension) == -1)
+                return alert('File video không đúng định dạng');
+            break;
+        default:
+            break;
     }
     let s3_key = `${prev_key_name}_${file.name}`;
     $(label_error_msg_id).text("");
