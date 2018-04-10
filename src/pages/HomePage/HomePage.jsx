@@ -1,9 +1,13 @@
 import React from 'react';
-import { Link, Switch } from 'react-router-dom';
+import { PrivateRoute } from '../../_components';
+import { Router, Link, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {Header} from "../../_components/Header";
 import {Sidebar} from "../../_components/Sidebar"
-import { userActions } from '../../_actions/index';
+import {userActions } from '../../_actions/index';
+import {history} from "../../_helpers";
+import {Blank} from "../Blank"
+import {Profiles} from "../Profiles"
 
 class HomePage extends React.Component {
     componentDidMount() {
@@ -16,7 +20,6 @@ class HomePage extends React.Component {
 
     render() {
         const { user, users } = this.props;
-        console.log(this.props);
         return (
             <React.Fragment>
                 <Header
@@ -25,27 +28,13 @@ class HomePage extends React.Component {
                     <Sidebar />
                     <div className="page-content-wrapper">
                         <div className="page-content" >
-                            <div className="page-bar">
-                                <ul className="page-breadcrumb">
-                                    <li>
-                                        <i className="fa fa-home"></i>
-                                        <Link to="/">Home</Link>
-                                        <i className="fa fa-angle-right"></i>
-                                    </li>
-                                    <li>
-                                        <a href="#">Page Layouts</a>
-                                        <i className="fa fa-angle-right"></i>
-                                    </li>
-                                    <li>
-                                        <a href="#">Blank Page</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="row">
-                                <div className="col-md-12">
-                                    Page content goes here
-                                </div>
-                            </div>
+                            <Router history={history}>
+                                <Switch>
+                                    <PrivateRoute path="/blank-page" component={Blank} />
+                                    <PrivateRoute path="/profiles" component={Profiles} />
+                                </Switch>
+                            </Router>
+
                         </div>
                     </div>
                 </div>

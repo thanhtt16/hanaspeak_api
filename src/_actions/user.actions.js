@@ -17,7 +17,8 @@ function login(username, password) {
             .then(
                 user => { 
                     dispatch(success(user));
-                    history.push('/');
+                    window.location.pathname = "/";
+                    /*history.push('/');*/
                 },
                 error => {
                     dispatch(failure(error));

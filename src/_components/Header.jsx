@@ -1,6 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 export class Header extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            squares: Array(9).fill(null),
+            xIsNext: true,
+        };
+    }
+
     render() {
         return (
             <div className="page-header -i navbar navbar-fixed-top">
@@ -36,28 +44,8 @@ export class Header extends React.Component {
                                 </a>
                                 <ul className="dropdown-menu dropdown-menu-default">
                                     <li>
-                                        <a href="extra_profile.html">
-                                            <i className="icon-user"></i> My Profile </a>
-                                    </li>
-                                    <li>
-                                        <a href="page_calendar.html">
-                                            <i className="icon-calendar"></i> My Calendar </a>
-                                    </li>
-                                    <li>
-                                        <a href="inbox.html">
-                                            <i className="icon-envelope-open"></i> My Inbox <span className="badge badge-danger">3 </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="page_todo.html">
-                                            <i className="icon-rocket"></i> My Tasks <span className="badge badge-success">7 </span>
-                                        </a>
-                                    </li>
-                                    <li className="divider">
-                                    </li>
-                                    <li>
-                                        <a href="extra_lock.html">
-                                            <i className="icon-lock"></i> Lock Screen </a>
+                                        <Link to="/profiles">
+                                            <i className="icon-user"></i> My Profile </Link>
                                     </li>
                                     <li>
                                         <Link to="/login">
