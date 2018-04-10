@@ -27,6 +27,7 @@ FlashCardModel.createNewFlashCard = function (flashCardData) {
 
 FlashCardModel.getFlashCards = function (flashCardId, limit, page) {
     return new Promise((resolve, reject) => {
+        limit = 1000;
         let offset = page * limit;
         let whereObj = {};
         if (flashCardId) 
