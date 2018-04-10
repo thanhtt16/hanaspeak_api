@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import {Header} from "../../_components/Header";
+import {Sidebar} from "../../_components/Sidebar"
 import { userActions } from '../../_actions/index';
 
 class HomePage extends React.Component {
@@ -15,26 +16,41 @@ class HomePage extends React.Component {
 
     render() {
         const { user, users } = this.props;
+        console.log(this.props);
         return (
-            <div className="col-md-6 col-md-offset-3">
-                <h1>Hi {user.firstName}!</h1>
-                <p>You're logged in with React & JWT!!</p>
-                <h3>Users from secure api end point:</h3>
-                {users.loading && <em>Loading users...</em>}
-                {users.error && <span className="text-danger">ERROR: {users.error}</span>}
-                {users.items &&
-                    <ul>
-                        {users.items.map((user, index) =>
-                            <li key={user.id}>
-                                {user.firstName + ' ' + user.lastName}
-                            </li>
-                        )}
-                    </ul>
-                }
-                <p>
-                    <Link to="/login">Logout</Link>
-                </p>
-            </div>
+            <React.Fragment>
+                <Header
+                    value={this.state}/>
+                <div className={"page-container"}>
+                    <Sidebar />
+                    <div className="page-content-wrapper">
+                        <div className="page-content" >
+                            <div className="page-bar">
+                                <ul className="page-breadcrumb">
+                                    <li>
+                                        <i className="fa fa-home"></i>
+                                        <Link to="/">Home</Link>
+                                        <i className="fa fa-angle-right"></i>
+                                    </li>
+                                    <li>
+                                        <a href="#">Page Layouts</a>
+                                        <i className="fa fa-angle-right"></i>
+                                    </li>
+                                    <li>
+                                        <a href="#">Blank Page</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className="row">
+                                <div className="col-md-12">
+                                    Page content goes here
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </React.Fragment>
+
         );
     }
 }
