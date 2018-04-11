@@ -1,4 +1,5 @@
 import { authHeader } from '../_helpers';
+import axios from 'axios';
 
 export const userService = {
     login,
@@ -7,29 +8,29 @@ export const userService = {
 };
 
 function login(username, password) {
-    const requestOptions = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
-    };
-
-    return fetch('/users/authenticate', requestOptions)
-        .then(response => {
-            if (!response.ok) { 
-                return Promise.reject(response.statusText);
+    return new Promise((resolve, reject)=>{
+        axios({
+            method: 'POST',
+            url: 'http://localhost:5000/api/v1/login',
+            headers: { 'Content-Type': 'application/json' },
+            data: {
+                username: username,
+                password: password
             }
-
-            return response.json();
-        })
-        .then(user => {
-            // login successful if there's a jwt token in the response
+        }).then(res => {
+            let user = res.data.data;
             if (user && user.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.setItem('user', JSON.stringify(user));
+                resolve(user);
+                // return user;
             }
-
-            return user;
-        });
+          })
+          .catch(error=>{
+              console.log(error);
+              reject(false);
+          })
+    })
 }
 
 function logout() {
