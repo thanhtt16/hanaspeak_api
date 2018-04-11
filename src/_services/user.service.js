@@ -1,5 +1,5 @@
 import { authHeader } from '../_helpers';
-import axios from 'axios';
+import apiCaller from '../_helpers/call-api';
 
 export const userService = {
     login,
@@ -9,15 +9,12 @@ export const userService = {
 
 function login(username, password) {
     return new Promise((resolve, reject)=>{
-        axios({
-            method: 'POST',
-            url: 'http://localhost:5000/api/v1/login',
-            headers: { 'Content-Type': 'application/json' },
-            data: {
-                username: username,
-                password: password
-            }
-        }).then(res => {
+        let body = {
+            username: username,
+            password: password
+        }
+        apiCaller('login', null, 'POST', body)
+        .then(res => {
             let user = res.data.data;
             if (user && user.token) {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -25,11 +22,10 @@ function login(username, password) {
                 resolve(user);
                 // return user;
             }
-          })
-          .catch(error=>{
-              console.log(error);
-              reject(false);
-          })
+        })
+        .catch(error=>{
+            reject(false);
+        })
     })
 }
 
