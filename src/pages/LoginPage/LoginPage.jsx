@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import './login.css'
 
 import { userActions } from '../../_actions/index';
 
@@ -40,34 +41,32 @@ class LoginPage extends React.Component {
         const { loggingIn } = this.props;
         const { username, password, submitted } = this.state;
         return (
-            <div className="col-md-6 col-md-offset-3">
-                <div className="alert alert-info">
-                    Username: test<br />
-                    Password: test
+            <div className="login">
+                <div className="content">
+                    <form className="login-form" onSubmit={this.handleSubmit} method="post" >
+                        <h3 className="form-title">Sign In</h3>
+                        <div className="alert alert-danger display-hide">
+                            <button className="close" data-close="alert"></button>
+                            <span> Enter any username and password. </span>
+                        </div>
+                        <div className="form-group">
+                            <label className="control-label visible-ie8 visible-ie9">Username</label>
+                            <input className="form-control form-control-solid placeholder-no-fix" type="text"
+                                   autoComplete="off" placeholder="Username" name="username" value={username} onChange={this.handleChange}/>
+                        </div>
+                        <div className="form-group">
+                            <label className="control-label visible-ie8 visible-ie9">Password</label>
+                            <input className="form-control form-control-solid placeholder-no-fix" type="password"
+                                   autoComplete="off" placeholder="Password" name="password" value={password} onChange={this.handleChange}/>
+                        </div>
+                        <div className="form-actions">
+                            <button type="submit" className="btn btn-success uppercase">Login</button>
+                            <label className="rememberme check">
+                                <input type="checkbox" name="remember" value="1"/>Remember </label>
+                            <a href="javascript:;" id="forget-password" className="forget-password">Forgot Password?</a>
+                        </div>
+                    </form>
                 </div>
-                <h2>Login</h2>
-                <form name="form" onSubmit={this.handleSubmit}>
-                    <div className={'form-group' + (submitted && !username ? ' has-error' : '')}>
-                        <label htmlFor="username">Username</label>
-                        <input type="text" className="form-control" name="username" value={username} onChange={this.handleChange} />
-                        {submitted && !username &&
-                            <div className="help-block">Username is required</div>
-                        }
-                    </div>
-                    <div className={'form-group' + (submitted && !password ? ' has-error' : '')}>
-                        <label htmlFor="password">Password</label>
-                        <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-                        {submitted && !password &&
-                            <div className="help-block">Password is required</div>
-                        }
-                    </div>
-                    <div className="form-group">
-                        <button className="btn btn-primary">Login</button>
-                        {loggingIn &&
-                            <img src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-                        }
-                    </div>
-                </form>
             </div>
         );
     }
