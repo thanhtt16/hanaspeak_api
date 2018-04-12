@@ -3,22 +3,12 @@
 var express = require('express'),
     router = express.Router(),
     check_authen = require('../../middlewares/authen'),
-    LessionController = require('../../controllers/LessionController');
+    LessionController = require('../../controllers/LessionController'),
+    CommonApi = require('./common_api');
 
-// Check authen token
-// router.use(check_authen);
-// Create new lession
+// Check authen token router.use(check_authen); Create new lession
 router.post('/', (req, res) => {
-    LessionController.createLession(req.body)
-        .then(lession => {
-            return res.status(200).jsend.success(lession);
-        })
-        .catch(error => {
-            return res.status(error['code']).jsend.error({
-                code: error['code'],
-                message: error['message']
-            })
-        })
+    CommonApi.create(req, res, LessionController.createLession);
 })
 
 // Get list lession
@@ -28,17 +18,21 @@ router.get('/', (req, res) => {
         page = req.query['page'],
         bookId = req.query['book_id'],
         queryOptions = {};
-    if(bookId)
+    if (bookId) 
         queryOptions['book_id'] = bookId;
-    LessionController.getLessions(lessionId, limit, page, queryOptions)
+    LessionController
+        .getLessions(lessionId, limit, page, queryOptions)
         .then(results => {
-            return res.status(200).jsend.success(results);
+            return res
+                .status(200)
+                .jsend
+                .success(results);
         })
         .catch(error => {
-            return res.status(error['code']).jsend.error({
-                code: error['code'],
-                message: error['message']
-            })
+            return res
+                .status(error['code'])
+                .jsend
+                .error({code: error['code'], message: error['message']})
         })
 })
 
@@ -46,31 +40,13 @@ router.get('/', (req, res) => {
 router.put('/:id', (req, res) => {
     let lessionId = req.params['id'],
         lessionData = req.body;
-    LessionController.updateLession(lessionId, lessionData)
-        .then(result => {
-            return res.status(200).jsend.success(result);
-        })
-        .catch(error => {
-            return res.status(error['code']).jsend.error({
-                code: error['code'],
-                message: error['message']
-            })
-        })
+    CommonApi.update(req, res, lessionId, lessionData, LessionController.updateLession);
 })
 
 // Delete lession by id
 router.delete('/:id', (req, res) => {
     let lessionId = req.params['id'];
-    LessionController.deleteLession(lessionId)
-        .then(result => {
-            return res.status(200).jsend.success(result);
-        })
-        .catch(error => {
-            return res.status(error['code']).jsend.error({
-                code: error['code'],
-                message: error['message']
-            })
-        })
+    CommonApi.delete(req, res, lessionId, LessionController.deleteLession);
 })
 
 module.exports = router;

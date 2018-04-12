@@ -3,25 +3,13 @@
 var express = require('express'),
     router = express.Router(),
     check_authen = require('../../middlewares/authen'),
-    FlashCardCategoryController = require('../../controllers/FlashCardCategoryController');
+    FlashCardCategoryController = require('../../controllers/FlashCardCategoryController'),
+    CommonApi = require('./common_api');
 
 // Middleware heck authen token router.use(check_authen); Create new Flash card
 // category
 router.post('/', (req, res) => {
-    FlashCardCategoryController
-        .createNewFlashCardCategory(req.body)
-        .then(flashCardCategory => {
-            return res
-                .status(200)
-                .jsend
-                .success(flashCardCategory);
-        })
-        .catch(error => {
-            return res
-                .status(error['code'])
-                .jsend
-                .error({code: error['code'], message: error['message']})
-        })
+    CommonApi.create(req, res, FlashCardCategoryController.createNewFlashCardCategory);
 })
 
 // Get Flash card category
@@ -29,59 +17,20 @@ router.get('/', (req, res) => {
     let categoryId = req.query['category_id'],
         limit = req.query['limit'],
         page = req.query['page'];
-    FlashCardCategoryController
-        .getFlashCardCategories(categoryId, limit, page)
-        .then(results => {
-            return res
-                .status(200)
-                .jsend
-                .success(results);
-        })
-        .catch(error => {
-            return res
-                .status(error['code'])
-                .jsend
-                .error({code: error['code'], message: error['message']})
-        })
+    CommonApi.get(req, res, categoryId, limit, page, FlashCardCategoryController.getFlashCardCategories);
 })
 
 // Update Flash card category
 router.put('/:id', (req, res) => {
     let categoryId = req.params['id'],
         flashCardCategoryData = req.body;
-    FlashCardCategoryController
-        .updateFlashCardCategory(categoryId, flashCardCategoryData)
-        .then(result => {
-            return res
-                .status(200)
-                .jsend
-                .success(result);
-        })
-        .catch(error => {
-            return res
-                .status(error['code'])
-                .jsend
-                .error({code: error['code'], message: error['message']})
-        })
+    CommonApi.update(req, res, categoryId, flashCardCategoryData, FlashCardCategoryController.updateFlashCardCategory);
 })
 
 // Delete Flash card category
 router.delete('/:id', (req, res) => {
     let categoryId = req.params['id'];
-    FlashCardCategoryController
-        .deleteFlashCardCategory(categoryId)
-        .then(result => {
-            return res
-                .status(200)
-                .jsend
-                .success(result);
-        })
-        .catch(error => {
-            return res
-                .status(error['code'])
-                .jsend
-                .error({code: error['code'], message: error['message']})
-        })
+    CommonApi.delete(req, res, categoryId, FlashCardCategoryController.deleteFlashCardCategory);
 })
 
 module.exports = router;

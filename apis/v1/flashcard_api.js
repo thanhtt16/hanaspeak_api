@@ -3,24 +3,12 @@
 var express = require('express'),
     router = express.Router(),
     check_authen = require('../../middlewares/authen'),
-    FlashCardController = require('../../controllers/FlashCardController');
+    FlashCardController = require('../../controllers/FlashCardController'),
+    CommonApi = require('./common_api');
 
 // Middleware heck authen token router.use(check_authen); Create new Flash card
 router.post('/', (req, res) => {
-    FlashCardController
-        .createNewFlashCard(req.body)
-        .then(flashCard => {
-            return res
-                .status(200)
-                .jsend
-                .success(flashCard);
-        })
-        .catch(error => {
-            return res
-                .status(error['code'])
-                .jsend
-                .error({code: error['code'], message: error['message']})
-        })
+    CommonApi.create(req, res, FlashCardController.createNewFlashCard);
 })
 
 // Get Flash card
@@ -28,59 +16,20 @@ router.get('/', (req, res) => {
     let flashCardId = req.query['flash_card_id'],
         limit = req.query['limit'],
         page = req.query['page'];
-    FlashCardController
-        .getFlashCards(flashCardId, limit, page)
-        .then(results => {
-            return res
-                .status(200)
-                .jsend
-                .success(results);
-        })
-        .catch(error => {
-            return res
-                .status(error['code'])
-                .jsend
-                .error({code: error['code'], message: error['message']})
-        })
+    CommonApi.get(req, res, flashCardId, limit, page, FlashCardController.getFlashCards);
 })
 
 // Update Flash card
 router.put('/:id', (req, res) => {
     let flashCardId = req.params['id'],
         flashCardData = req.body;
-    FlashCardController
-        .updateFlashCard(flashCardId, flashCardData)
-        .then(result => {
-            return res
-                .status(200)
-                .jsend
-                .success(result);
-        })
-        .catch(error => {
-            return res
-                .status(error['code'])
-                .jsend
-                .error({code: error['code'], message: error['message']})
-        })
+    CommonApi.update(req, res, flashCardId, flashCardData, FlashCardController.updateFlashCard);
 })
 
 // Delete Flash card
 router.delete('/:id', (req, res) => {
     let flashCardId = req.params['id'];
-    FlashCardController
-        .deleteFlashCard(flashCardId)
-        .then(result => {
-            return res
-                .status(200)
-                .jsend
-                .success(result);
-        })
-        .catch(error => {
-            return res
-                .status(error['code'])
-                .jsend
-                .error({code: error['code'], message: error['message']})
-        })
+    CommonApi.delete(req, res, flashCardId, FlashCardController.deleteFlashCard);
 })
 
 module.exports = router;
