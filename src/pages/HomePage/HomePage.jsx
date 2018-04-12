@@ -24,17 +24,17 @@ class HomePage extends React.Component {
             <React.Fragment>
                 <Header
                     value={this.state}/>
-                <div className={"page-container"}>
-                    <Sidebar />
-                    <div className="page-content-wrapper">
-                        <div className="page-content" >
+                <div class="page-container">
+                    <div class="page-content">
+                        <Sidebar />
+                        <div className="content-wrapper">
                             <Router history={history}>
                                 <Switch>
                                     <PrivateRoute path="/blank-page" component={Blank} />
                                     <PrivateRoute path="/profiles" component={Profiles} />
+                                    <PrivateRoute component={Profiles} />
                                 </Switch>
                             </Router>
-
                         </div>
                     </div>
                 </div>

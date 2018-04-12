@@ -11,53 +11,98 @@ export class Header extends React.Component {
 
     render() {
         return (
-            <div className="page-header -i navbar navbar-fixed-top">
+            <div class="navbar navbar-inverse">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html"><img src="assets/images/logo_light.png" alt=""/></a>
 
-                <div className="page-header-inner">
-
-                    <div className="page-logo">
-                        <Link to="/">
-                            <img src="/assets/admin/layout/img/logo.png" alt="logo" className="logo-default" />
-                        </Link>
-                        <div className="menu-toggler sidebar-toggler">
-                            <ul className="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
-                                <li className="sidebar-toggler-wrapper">
-                                    <div className="sidebar-toggler">
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <a href="javascript:;" className="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse">
-                    </a>
-
-                    <div className="top-menu">
-                        <ul className="nav navbar-nav pull-right">
-
-                            <li className="dropdown dropdown-user">
-                                <a href="javascript:;" className="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
-                                    <img alt="" className="img-circle" src="/assets/admin/layout/img/avatar3_small.jpg" />
-                                    <span className="username username-hide-on-mobile">
-                                    Nick </span>
-                                    <i className="fa fa-angle-down"></i>
-                                </a>
-                                <ul className="dropdown-menu dropdown-menu-default">
-                                    <li>
-                                        <Link to="/profiles">
-                                            <i className="icon-user"></i> My Profile </Link>
-                                    </li>
-                                    <li>
-                                        <Link to="/login">
-                                            <i className="icon-key"></i> Log Out </Link>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-
+                    <ul class="nav navbar-nav pull-right visible-xs-block">
+                        <li><a data-toggle="collapse" data-target="#navbar-mobile"><i class="icon-tree5"></i></a></li>
+                        <li><a class="sidebar-mobile-main-toggle"><i class="icon-paragraph-justify3"></i></a></li>
+                    </ul>
                 </div>
 
+                <div class="navbar-collapse collapse" id="navbar-mobile">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a class="sidebar-control sidebar-main-toggle hidden-xs">
+                                <i class="icon-paragraph-justify3"></i>
+                            </a>
+                        </li>
+
+
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-bubbles4"></i>
+                                <span class="visible-xs-inline-block position-right">Messages</span>
+                                <span class="badge bg-warning-400">2</span>
+                            </a>
+
+                            <div class="dropdown-menu dropdown-content width-350">
+                                <div class="dropdown-content-heading">
+                                    Messages
+                                    <ul class="icons-list">
+                                        <li><a href="#"><i class="icon-compose"></i></a></li>
+                                    </ul>
+                                </div>
+
+                                <ul class="media-list dropdown-content-body">
+                                    <li class="media">
+                                        <div class="media-left">
+                                            <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="" />
+                                                <span class="badge bg-danger-400 media-badge">5</span>
+                                        </div>
+
+                                        <div class="media-body">
+                                            <a href="#" class="media-heading">
+                                                <span class="text-semibold">James Alexander</span>
+                                                <span class="media-annotation pull-right">04:58</span>
+                                            </a>
+
+                                            <span class="text-muted">who knows, maybe that would be the best thing for me...</span>
+                                        </div>
+                                    </li>
+
+                                    <li class="media">
+                                        <div class="media-left">
+                                            <img src="assets/images/placeholder.jpg" class="img-circle img-sm" alt="" />
+                                                <span class="badge bg-danger-400 media-badge">4</span>
+                                        </div>
+
+                                        <div class="media-body">
+                                            <a href="#" class="media-heading">
+                                                <span class="text-semibold">Margo Baker</span>
+                                                <span class="media-annotation pull-right">12:16</span>
+                                            </a>
+
+                                            <span class="text-muted">That was something he was unable to do because...</span>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <div class="dropdown-content-footer">
+                                    <a href="#" data-popup="tooltip" title="All messages"><i class="icon-menu display-block"></i></a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="dropdown dropdown-user">
+                            <a class="dropdown-toggle" data-toggle="dropdown">
+                                <img src="assets/images/placeholder.jpg" alt="" />
+                                    <span>Victoria</span>
+                                    <i class="caret"></i>
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-right">
+                                <li><Link to="/profiles"><i class="icon-user-plus"></i> My profile</Link></li>
+                                <li class="divider"></li>
+                                <li><Link to="/login"><i class="icon-switch2"></i> Logout</Link></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         );
     }
