@@ -7,17 +7,19 @@ export class BreadCrumb extends React.Component {
         var listLinks = this.props.datalink;
 
         const listItems = listLinks.map((link, index) =>
-            <li>
-                {index == 0 ? <i className="fa fa-home"></i> : ''}
-                <Link to={link.link}>{link.title}</Link>
-                {index != listLinks.length -1 ? <i className="fa fa-angle-right"></i> : ''}
+            <li class={index == listLinks.length -1 ? 'active' : ''}>
+                <Link to={link.title}>{index == 0 ? <i class="icon-home2 position-left"></i> : ''} {link.title}</Link>
             </li>
         );
-
         return (
-            <ul className="page-breadcrumb">
-                {listItems}
-            </ul>
+            <div class="page-header">
+                <div class="breadcrumb-line">
+                    <ul class="breadcrumb">
+                        {listItems}
+                    </ul>
+                </div>
+            </div>
+
         );
     }
 }

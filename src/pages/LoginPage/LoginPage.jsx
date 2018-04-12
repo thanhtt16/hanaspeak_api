@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import './login.css'
 
 import { userActions } from '../../_actions/index';
 
@@ -41,31 +40,40 @@ class LoginPage extends React.Component {
         const { loggingIn } = this.props;
         const { username, password, submitted } = this.state;
         return (
-            <div className="login">
-                <div className="content">
-                    <form className="login-form" onSubmit={this.handleSubmit} method="post" >
-                        <h3 className="form-title">Sign In</h3>
-                        <div className="alert alert-danger display-hide">
-                            <button className="close" data-close="alert"></button>
-                            <span> Enter any username and password. </span>
+            <div className="page-container login-container">
+                <div className="page-content">
+                    <div className="content-wrapper">
+                        <div className="content">
+                            <form onSubmit={this.handleSubmit} method="post">
+                                <div className="panel panel-body login-form">
+                                    <div className="text-center">
+                                        <h5 className="content-group-lg">Login to your account <small className="display-block">Enter your credentials</small></h5>
+                                    </div>
+
+                                    <div className="form-group has-feedback has-feedback-left">
+                                        <input type="text" className="form-control" placeholder="Username" name="username"
+                                               value={username} onChange={this.handleChange}/>
+                                        <div className="form-control-feedback">
+                                            <i className="icon-user text-muted"></i>
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group has-feedback has-feedback-left">
+                                        <input type="password" className="form-control" placeholder="Password" name="password"
+                                               value={password} onChange={this.handleChange}/>
+                                        <div className="form-control-feedback">
+                                            <i className="icon-lock2 text-muted"></i>
+                                        </div>
+                                    </div>
+
+                                    <div className="form-group">
+                                        <button type="submit" className="btn bg-blue btn-block">Login <i className="icon-arrow-right14 position-right"></i></button>
+                                    </div>
+
+                                </div>
+                            </form>
                         </div>
-                        <div className="form-group">
-                            <label className="control-label visible-ie8 visible-ie9">Username</label>
-                            <input className="form-control form-control-solid placeholder-no-fix" type="text"
-                                   autoComplete="off" placeholder="Username" name="username" value={username} onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-group">
-                            <label className="control-label visible-ie8 visible-ie9">Password</label>
-                            <input className="form-control form-control-solid placeholder-no-fix" type="password"
-                                   autoComplete="off" placeholder="Password" name="password" value={password} onChange={this.handleChange}/>
-                        </div>
-                        <div className="form-actions">
-                            <button type="submit" className="btn btn-success uppercase">Login</button>
-                            <label className="rememberme check">
-                                <input type="checkbox" name="remember" value="1"/>Remember </label>
-                            <a href="javascript:;" id="forget-password" className="forget-password">Forgot Password?</a>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         );

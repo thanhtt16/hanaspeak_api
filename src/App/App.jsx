@@ -7,7 +7,6 @@ import { alertActions } from '../_actions';
 import { PrivateRoute } from '../_components';
 import { HomePage } from '../pages/HomePage';
 import { LoginPage } from '../pages/LoginPage';
-import { Overview } from '../pages/Overview';
 
 class App extends React.Component {
     constructor(props) {
@@ -25,7 +24,6 @@ class App extends React.Component {
         return (
             <Router history={history}>
                 <Switch>
-                    <Route  path="/overview" component={Overview} />
                     <Route path="/login" component={LoginPage} />
                     <PrivateRoute path="/" component={HomePage} />
                 </Switch>
