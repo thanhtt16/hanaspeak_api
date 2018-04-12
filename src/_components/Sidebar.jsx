@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Link, Switch } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 
 export class Sidebar extends React.Component {
     render() {
