@@ -2,20 +2,10 @@
 
 var SignUpModel = require('../models/SignUpModel');
 
-var SignUpController = function () {
-
-}
+var SignUpController = function () {}
 
 SignUpController.signup = function (userData) {
-    return new Promise((resolve, reject) => {
-        SignUpModel.signup(userData)
-            .then(token => { 
-                return resolve(token);
-            })
-            .catch(error => {
-                return reject(error);
-            })
-    })
+    return SignUpModel.signup(userData);
 }
 
 module.exports = SignUpController;

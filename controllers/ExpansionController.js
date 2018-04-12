@@ -2,66 +2,34 @@
 
 var ExpansionModel = require('../models/ExpansionModel');
 
-var ExpansionController = function () {
-
-}
+var ExpansionController = function () {}
 
 ExpansionController.createExpansion = function (expansionData) {
-    return new Promise((resolve, reject) => {
-        ExpansionModel.createExpansion(expansionData)
-            .then(expansion => {
-                return resolve(expansion);
-            })
-            .catch(error => {
-                return reject(error);
-            })
-    })
+    return ExpansionModel.createExpansion(expansionData);
 }
 
 ExpansionController.getExpansions = function (expansionId, limit, page) {
-    return new Promise((resolve, reject) => {
-        try {
-            limit = parseInt(limit);
-            page = parseInt(page);
-            if (!limit || limit < 0) limit = 10;
-            if (!page || page < 0) page = 0;
-        } catch (ex) {
+    try {
+        limit = parseInt(limit);
+        page = parseInt(page);
+        if (!limit || limit < 0) 
             limit = 10;
+        if (!page || page < 0) 
             page = 0;
         }
-        ExpansionModel.getExpansions(expansionId, limit, page)
-            .then(results => {
-                return resolve(results);
-            })
-            .catch(error => {
-                return reject(error);
-            })
-    })
+    catch (ex) {
+        limit = 10;
+        page = 0;
+    }
+    return ExpansionModel.getExpansions(expansionId, limit, page);
 }
 
 ExpansionController.updateExpansion = function (expansionId, expansionData) {
-    return new Promise((resolve, reject) => {
-        ExpansionModel.updateExpansion(expansionId, expansionData)
-            .then(results => {
-                return resolve(results);
-            })
-            .catch(error => {
-                return reject(error);
-            })
-    })
+    return ExpansionModel.updateExpansion(expansionId, expansionData);
 }
 
 ExpansionController.deleteExpansion = function (expansionId) {
-    return new Promise((resolve, reject) => {
-        ExpansionModel.deleteExpansion(expansionId)
-            .then(result => {
-                return resolve(result);
-            })
-            .catch(error => {
-                return reject(error);
-            })
-    })
+    return ExpansionModel.deleteExpansion(expansionId);
 }
-
 
 module.exports = ExpansionController;
