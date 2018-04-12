@@ -7,8 +7,8 @@ export class BreadCrumb extends React.Component {
         var listLinks = this.props.datalink;
 
         const listItems = listLinks.map((link, index) =>
-            <li class={index == listLinks.length -1 ? 'active' : ''}>
-                <Link to={link.title}>{index == 0 ? <i class="icon-home2 position-left"></i> : ''} {link.title}</Link>
+            <li class={index === listLinks.length -1 ? 'active' : ''}>
+                <Link to={link.title}>{index === 0 ? <i class="icon-home2 position-left"></i> : ''} {link.title}</Link>
             </li>
         );
         return (
