@@ -5,6 +5,8 @@ var logger = require('../utils/logger');
 var config = require('config');
 var bcrypt = require('bcrypt');
 var User = require('./Schemas/User');
+var CommonModel = require('./CommonModel');
+var commonModel = new CommonModel(User);
 var UserModel = function () {
 
 }
@@ -49,32 +51,7 @@ UserModel.createNewUser = function (userData) {
 }
 
 UserModel.getUsers = function (user_id, limit, page) {
-    return new Promise((resolve, reject) => {
-        let offset = page * limit;
-        let where_obj = {};
-        if (user_id)
-            where_obj = {
-                id: user_id
-            };
-        User.findAndCountAll({
-            where: where_obj,
-            offset: offset,
-            limit: limit
-        }).then(result => {
-            if (result['count'] == 0)
-                return reject({
-                    code: 404,
-                    message: "Not found any user"
-                })
-            return resolve(result);
-        }).catch(error => {
-            logger.error('UserModel.getUsers has error: ', error);
-            return reject({
-                code: 500,
-                message: 'Get users error'
-            });
-        })
-    })
+    return commonModel.get(user_id, limit, page);
 }
 
 UserModel.updateUser = function (user_id, userData) {
@@ -114,21 +91,7 @@ UserModel.updateUser = function (user_id, userData) {
 }
 
 UserModel.deleteUser = function (user_id) {
-    return new Promise((resolve, reject) => {
-        User.destroy({
-            where: {
-                id: user_id
-            }
-        }).then(result => {
-            if (result == 1)
-                return resolve('Delete user success');
-            else
-                return reject({ code: 404, message: 'Not found user_id' })
-        }).catch(error => {
-            logger.error('UserModel.deleteUser has error: ', error);
-            return reject({ code: 500, message: 'Delete user error' });
-        })
-    })
+    return commonModel.delete(user_id);
 }
 
 
